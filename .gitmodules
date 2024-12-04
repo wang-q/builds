@@ -7,3 +7,6 @@
 [submodule "FASTK"]
 	path = FASTK
 	url = https://github.com/thegenemyers/FASTK.git
+[submodule "MERQURY.FK"]
+	path = MERQURY.FK
+	url = https://github.com/thegenemyers/MERQURY.FK.git
