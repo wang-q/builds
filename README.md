@@ -116,6 +116,35 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
+## DALIGNER
+
+```shell
+cd DALIGNER
+
+git restore .
+make clean
+
+sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
+sed -i '1i CC = zig cc -target x86_64-linux-gnu.2.17' Makefile
+# sed -i '1i CC = zig cc' Makefile
+
+make
+
+FN_TAR=DALIGNER.86_64-linux-gnu.$(date +"%Y%m%d").tar.gz
+GZIP=-9 tar cvfz ${FN_TAR} \
+    $(make -p | grep "^all: " | sed 's/^all://')
+
+mv ${FN_TAR} ../tar/
+
+git restore .
+make clean
+
+cd ..
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
+
+```
+
 ## Download and install binaries to `~/bin`
 
 ```shell
@@ -124,6 +153,7 @@ curl -fsSL \
     https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
     jq -r '.tree[] | select( .path | startswith("tar/DAZZ_DB") ) | .path' |
     parallel -j 1 '
+        echo >&2 {}
         curl -fsSL -O https://raw.githubusercontent.com/wang-q/builds/master/{}
     '
 
