@@ -4,6 +4,7 @@
 * [Build binaries for glibc 2.17 (CentOS 7)](#build-binaries-for-glibc-217-centos-7)
   * [submodules](#submodules)
   * [DAZZ_DB](#dazzdb)
+  * [DALIGNER](#daligner)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
