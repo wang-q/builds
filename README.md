@@ -60,3 +60,14 @@ git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
 
 ```
+
+```shell
+
+curl -fsSL \
+    https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
+    jq -r '.tree[] | select( .path | startswith("tar/DAZZ_DB") ) | .path' |
+    parallel -j 1 '
+        curl -fsSL -O https://raw.githubusercontent.com/wang-q/builds/master/{}
+    '
+
+```
