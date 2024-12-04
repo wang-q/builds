@@ -1,3 +1,6 @@
 [submodule "DAZZ_DB"]
 	path = DAZZ_DB
 	url = https://github.com/thegenemyers/DAZZ_DB.git
+[submodule "DALIGNER"]
+	path = DALIGNER
+	url = https://github.com/thegenemyers/DALIGNER.git
