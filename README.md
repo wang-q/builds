@@ -2,24 +2,37 @@
 
 <!-- TOC -->
 * [Build binaries for glibc 2.17 (CentOS 7)](#build-binaries-for-glibc-217-centos-7)
-  * [submodules](#submodules)
+  * [Zig](#zig)
+  * [Submodules](#submodules)
   * [DAZZ_DB](#dazzdb)
   * [DALIGNER](#daligner)
+  * [FASTK](#fastk)
+  * [MERQURY.FK](#merquryfk)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
+
+## Zig
 
 ```shell
 # Cross compiling
 brew install zig jq
 zig targets | jq .libc
 
-mkdir -p tar
+```
+
+```shell
+curl -L https://ziglang.org/builds/zig-linux-x86_64-0.14.0-dev.2371+c013f45ad.tar.xz > zig.tar.xz
+tar xvfJ zig.tar.xz
+mv zig-linux-x86_64* zig
+ln -s $HOME/share/zig/zig $HOME/bin/zig
 
 ```
 
-## submodules
+## Submodules
 
 ```shell
+mkdir -p tar
+
 # DAZZ_DB
 git submodule add https://github.com/thegenemyers/DAZZ_DB.git DAZZ_DB
 
@@ -102,7 +115,7 @@ sed -i \
 
 make
 
-FN_TAR=DAZZ_DB.86_64-linux-gnu.$(date +"%Y%m%d").tar.gz
+FN_TAR=DAZZ_DB.x86_64-linux-gnu.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $(make -p | grep "^all: " | sed 's/^all://')
 
@@ -127,11 +140,65 @@ make clean
 
 sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
 sed -i '1i CC = zig cc -target x86_64-linux-gnu.2.17' Makefile
-# sed -i '1i CC = zig cc' Makefile
 
 make
 
-FN_TAR=DALIGNER.86_64-linux-gnu.$(date +"%Y%m%d").tar.gz
+FN_TAR=DALIGNER.x86_64-linux-gnu.tar.gz
+GZIP=-9 tar cvfz ${FN_TAR} \
+    $(make -p | grep "^all: " | sed 's/^all://')
+
+mv ${FN_TAR} ../tar/
+
+git restore .
+make clean
+
+cd ..
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
+
+```
+
+## FASTK
+
+```shell
+cd FASTK
+
+git restore .
+make clean
+
+make CC="zig cc -D_GNU_SOURCE"
+
+FN_TAR=FASTK.centos.tar.gz
+GZIP=-9 tar cvfz ${FN_TAR} \
+    $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
+
+mv ${FN_TAR} ../tar/
+
+git restore .
+make clean
+rm LIBDEFLATE/a.out
+rm LIBDEFLATE/null.o
+
+cd ..
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
+
+```
+
+## MERQURY.FK
+
+```shell
+cd MERQURY.FK
+
+git restore .
+make clean
+
+sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
+sed -i '1i CC = zig cc' Makefile
+
+make
+
+FN_TAR=MERQURY.FK.centos.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $(make -p | grep "^all: " | sed 's/^all://')
 
