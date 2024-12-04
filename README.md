@@ -56,6 +56,7 @@ git restore .
 make clean
 
 cd ..
-git commit -a "${FN_TAR}"
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
 
 ```
