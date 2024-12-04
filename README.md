@@ -1,23 +1,29 @@
 # Build binaries for glibc 2.17 (CentOS 7)
 
+<!-- TOC -->
+* [Build binaries for glibc 2.17 (CentOS 7)](#build-binaries-for-glibc-217-centos-7)
+  * [submodules](#submodules)
+  * [DAZZ_DB](#dazzdb)
+  * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
+<!-- TOC -->
+
 ```shell
 # Cross compiling
 brew install zig jq
 zig targets | jq .libc
+
+mkdir -p tar
 
 ```
 
 ## submodules
 
 ```shell
-mkdir -p tar
-
 # DAZZ_DB
 git submodule add https://github.com/thegenemyers/DAZZ_DB.git DAZZ_DB
 
 cd DAZZ_DB
 git checkout be65e59
-
 cd ..
 git add DAZZ_DB
 git commit -m "Update DAZZ_DB to be65e59"
@@ -27,7 +33,6 @@ git submodule add https://github.com/thegenemyers/DALIGNER.git DALIGNER
 
 cd DALIGNER
 git checkout a8e2f42
-
 cd ..
 git add DALIGNER
 git commit -m "Update DALIGNER to a8e2f42"
@@ -37,7 +42,6 @@ git submodule add https://github.com/thegenemyers/FASTK.git FASTK
 
 cd FASTK
 git checkout ddea6cf
-
 cd ..
 git add FASTK
 git commit -m "Update FASTK to ddea6cf"
@@ -47,7 +51,6 @@ git submodule add https://github.com/thegenemyers/FASTK.git FASTK
 
 cd FASTK
 git checkout ddea6cf
-
 cd ..
 git add FASTK
 git commit -m "Update FASTK to ddea6cf"
@@ -57,7 +60,6 @@ git submodule add https://github.com/thegenemyers/MERQURY.FK.git MERQURY.FK
 
 cd MERQURY.FK
 git checkout a100533
-
 cd ..
 git add MERQURY.FK
 git commit -m "Update MERQURY.FK to a100533"
@@ -67,7 +69,6 @@ git submodule add https://github.com/thegenemyers/FASTGA.git FASTGA
 
 cd FASTGA
 git checkout e97c33e
-
 cd ..
 git add FASTGA
 git commit -m "Update FASTGA to e97c33e"
@@ -114,6 +115,8 @@ git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
 
 ```
+
+## Download and install binaries to `~/bin`
 
 ```shell
 
