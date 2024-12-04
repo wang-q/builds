@@ -8,6 +8,7 @@
   * [DALIGNER](#daligner)
   * [FASTK](#fastk)
   * [MERQURY.FK](#merquryfk)
+  * [FASTGA](#fastga)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
@@ -201,6 +202,31 @@ make
 FN_TAR=MERQURY.FK.centos.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $(make -p | grep "^all: " | sed 's/^all://')
+
+mv ${FN_TAR} ../tar/
+
+git restore .
+make clean
+
+cd ..
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
+
+```
+
+## FASTGA
+
+```shell
+cd FASTGA
+
+git restore .
+make clean
+
+make CC="zig cc"
+
+FN_TAR=FASTGA.centos.tar.gz
+GZIP=-9 tar cvfz ${FN_TAR} \
+    $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
 
 mv ${FN_TAR} ../tar/
 
