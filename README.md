@@ -27,11 +27,10 @@ tar xvfJ zig.tar.xz
 mv zig-linux-x86_64* zig
 ln -s $HOME/share/zig/zig $HOME/bin/zig
 
-# https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11YXaNlz
-sudo curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
-sudo sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
+curl -LO https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+chmod +x jq-linux-amd64
+mv jq-linux-amd64 ~/bin/jq
 
-sudo yum install jq
 
 ```
 
