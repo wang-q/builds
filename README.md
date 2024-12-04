@@ -27,6 +27,12 @@ tar xvfJ zig.tar.xz
 mv zig-linux-x86_64* zig
 ln -s $HOME/share/zig/zig $HOME/bin/zig
 
+# https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11YXaNlz
+sudo curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+sudo sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
+
+sudo yum install jq
+
 ```
 
 ## Submodules
@@ -242,13 +248,15 @@ git commit -a -m "${FN_TAR}"
 ## Download and install binaries to `~/bin`
 
 ```shell
+mkdir -p $HOME/bin
 
 curl -fsSL \
     https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
-    jq -r '.tree[] | select( .path | startswith("tar/DAZZ_DB") ) | .path' |
-    parallel -j 1 '
+    jq -r '.tree[] | select( .path | startswith("tar/") ) | .path' |
+    parallel -j 1 "
         echo >&2 {}
-        curl -fsSL -O https://raw.githubusercontent.com/wang-q/builds/master/{}
-    '
+        curl -fsSL https://raw.githubusercontent.com/wang-q/builds/master/{} |
+        tar xvz --directory=$HOME/bin/
+    "
 
 ```
