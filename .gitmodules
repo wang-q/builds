@@ -13,3 +13,6 @@
 [submodule "FASTGA"]
 	path = FASTGA
 	url = https://github.com/thegenemyers/FASTGA.git
+[submodule "intspan"]
+	path = intspan
+	url = https://github.com/wang-q/intspan.git
