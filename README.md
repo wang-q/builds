@@ -3,12 +3,17 @@
 <!-- TOC -->
 * [Build binaries for glibc 2.17 (CentOS 7)](#build-binaries-for-glibc-217-centos-7)
   * [Zig](#zig)
+  * [Rust](#rust)
   * [Submodules](#submodules)
   * [DAZZ_DB](#dazzdb)
   * [DALIGNER](#daligner)
   * [FASTK](#fastk)
   * [MERQURY.FK](#merquryfk)
   * [FASTGA](#fastga)
+  * [intspan](#intspan)
+  * [hnsm](#hnsm)
+  * [fd](#fd)
+  * [anchr](#anchr)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
