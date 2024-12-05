@@ -128,6 +128,15 @@ cd ..
 git add fd
 git commit -m "Update fd to v10.2.0"
 
+# anchr
+git submodule add https://github.com/wang-q/anchr.git anchr
+
+cd anchr
+git checkout fadc09f
+cd ..
+git add anchr
+git commit -m "Update anchr to fadc09f"
+
 ```
 
 ## DAZZ_DB
@@ -366,6 +375,39 @@ for BIN in $BINS; do
 done
 
 FN_TAR=fd.x86_64-unknown-linux-gnu.tar.gz
+GZIP=-9 tar cvfz ${FN_TAR} \
+    $BINS
+
+mv ${FN_TAR} ../tar/
+rm $BINS
+
+cd ..
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
+
+```
+
+## anchr
+
+```shell
+mkdir -p /tmp/cargo
+export CARGO_TARGET_DIR=/tmp/cargo
+
+cd anchr
+
+cargo zigbuild --target x86_64-unknown-linux-gnu.2.17 --release
+ll $CARGO_TARGET_DIR/x86_64-unknown-linux-gnu/release/
+
+BINS=$(
+    cargo read-manifest |
+        jq --raw-output '.targets[] | select( .kind[0] == "bin" ) | .name '
+)
+
+for BIN in $BINS; do
+    cp $CARGO_TARGET_DIR/x86_64-unknown-linux-gnu/release/$BIN .
+done
+
+FN_TAR=anchr.x86_64-unknown-linux-gnu.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $BINS
 
