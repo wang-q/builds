@@ -16,3 +16,6 @@
 [submodule "intspan"]
 	path = intspan
 	url = https://github.com/wang-q/intspan.git
+[submodule "hnsm"]
+	path = hnsm
+	url = https://github.com/wang-q/hnsm.git
