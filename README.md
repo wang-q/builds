@@ -31,6 +31,14 @@ curl -LO https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
 chmod +x jq-linux-amd64
 mv jq-linux-amd64 ~/bin/jq
 
+```
+
+## Rust
+
+```shell
+curl https://sh.rustup.rs -sSf | bash -s -- -y
+
+cargo install --locked cargo-zigbuild
 
 ```
 
@@ -92,6 +100,15 @@ git checkout e97c33e
 cd ..
 git add FASTGA
 git commit -m "Update FASTGA to e97c33e"
+
+# intspan
+git submodule add https://github.com/wang-q/intspan.git intspan
+
+cd intspan
+git checkout v0.8.0
+cd ..
+git add intspan
+git commit -m "Update intspan to v0.8.0"
 
 ```
 
@@ -237,6 +254,39 @@ mv ${FN_TAR} ../tar/
 
 git restore .
 make clean
+
+cd ..
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
+
+```
+
+## intspan
+
+```shell
+mkdir -p /tmp/cargo
+export CARGO_TARGET_DIR=/tmp/cargo
+
+cd intspan
+
+cargo zigbuild --target x86_64-unknown-linux-gnu.2.17 --release
+ll $CARGO_TARGET_DIR/x86_64-unknown-linux-gnu/release/
+
+BINS=$(
+    cargo read-manifest |
+        jq --raw-output '.targets[] | select( .kind[0] == "bin" ) | .name '
+)
+
+for BIN in $BINS; do
+    cp $CARGO_TARGET_DIR/x86_64-unknown-linux-gnu/release/$BIN .
+done
+
+FN_TAR=intspan.x86_64-unknown-linux-gnu.tar.gz
+GZIP=-9 tar cvfz ${FN_TAR} \
+    $BINS
+
+mv ${FN_TAR} ../tar/
+rm $BINS
 
 cd ..
 git add "tar/${FN_TAR}"
