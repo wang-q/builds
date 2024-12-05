@@ -19,3 +19,6 @@
 [submodule "hnsm"]
 	path = hnsm
 	url = https://github.com/wang-q/hnsm.git
+[submodule "fd"]
+	path = fd
+	url = https://github.com/sharkdp/fd.git
