@@ -22,3 +22,6 @@
 [submodule "fd"]
 	path = fd
 	url = https://github.com/sharkdp/fd.git
+[submodule "anchr"]
+	path = anchr
+	url = https://github.com/wang-q/anchr.git
