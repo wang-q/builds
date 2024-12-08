@@ -434,7 +434,7 @@ curl -fsSL \
     https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
     jq -r '.tree[] | select( .path | startswith("tar/") ) | .path' |
     parallel -j 1 "
-        echo >&2 {}
+        echo >&2 '==> {}'
         curl -fsSL https://raw.githubusercontent.com/wang-q/builds/master/{} |
         tar xvz --directory=$HOME/bin/
     "
