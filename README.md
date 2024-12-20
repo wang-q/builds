@@ -124,6 +124,13 @@ cd ..
 git add hnsm
 git commit -m "Update hnsm to 5b5ec06"
 
+git submodule update --init hnsm
+cd hnsm
+git checkout 7972cbf
+cd ..
+git add hnsm
+git commit -m "Update hnsm to 7972cbf"
+
 # fd
 git submodule add https://github.com/sharkdp/fd.git fd
 
