@@ -5,15 +5,16 @@
   * [Zig](#zig)
   * [Rust](#rust)
   * [Submodules](#submodules)
-  * [DAZZ_DB](#dazzdb)
-  * [DALIGNER](#daligner)
-  * [FASTK](#fastk)
-  * [MERQURY.FK](#merquryfk)
-  * [FASTGA](#fastga)
-  * [intspan](#intspan)
-  * [hnsm](#hnsm)
-  * [fd](#fd)
-  * [anchr](#anchr)
+  * [Builds](#builds)
+    * [DAZZ_DB](#dazz_db)
+    * [DALIGNER](#daligner)
+    * [FASTK](#fastk)
+    * [MERQURY.FK](#merquryfk)
+    * [FASTGA](#fastga)
+    * [intspan](#intspan)
+    * [hnsm](#hnsm)
+    * [fd](#fd)
+    * [anchr](#anchr)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
@@ -69,15 +70,6 @@ git checkout a8e2f42
 cd ..
 git add DALIGNER
 git commit -m "Update DALIGNER to a8e2f42"
-
-# FASTK
-git submodule add https://github.com/thegenemyers/FASTK.git FASTK
-
-cd FASTK
-git checkout ddea6cf
-cd ..
-git add FASTK
-git commit -m "Update FASTK to ddea6cf"
 
 # FASTK
 git submodule add https://github.com/thegenemyers/FASTK.git FASTK
@@ -151,7 +143,9 @@ git commit -m "Update anchr to fadc09f"
 
 ```
 
-## DAZZ_DB
+## Builds
+
+### DAZZ_DB
 
 ```shell
 cd DAZZ_DB
@@ -192,7 +186,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## DALIGNER
+### DALIGNER
 
 ```shell
 cd DALIGNER
@@ -220,7 +214,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## FASTK
+### FASTK
 
 ```shell
 cd FASTK
@@ -247,7 +241,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## MERQURY.FK
+### MERQURY.FK
 
 ```shell
 cd MERQURY.FK
@@ -275,7 +269,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## FASTGA
+### FASTGA
 
 ```shell
 cd FASTGA
@@ -300,7 +294,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## intspan
+### intspan
 
 ```shell
 mkdir -p /tmp/cargo
@@ -333,7 +327,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## hnsm
+### hnsm
 
 ```shell
 mkdir -p /tmp/cargo
@@ -366,7 +360,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## fd
+### fd
 
 ```shell
 mkdir -p /tmp/cargo
@@ -399,7 +393,7 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-## anchr
+### anchr
 
 ```shell
 mkdir -p /tmp/cargo
