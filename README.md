@@ -214,6 +214,25 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
+### zlib
+
+```shell
+mkdir -p static
+
+curl -L https://zlib.net/zlib-1.3.1.tar.gz |
+    tar xvz
+
+cd zlib-1.3.1
+
+CC="zig cc -target x86_64-linux-gnu.2.17" ./configure --static --prefix=../static
+make
+make install
+
+cd ..
+rm -fr zlib-1.3.1
+
+```
+
 ### FASTK
 
 ```shell
@@ -224,7 +243,7 @@ make clean
 
 make CC="zig cc -D_GNU_SOURCE"
 
-FN_TAR=FASTK.centos.tar.gz
+FN_TAR=FASTK.x86_64-linux-gnu.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
 
@@ -250,11 +269,12 @@ git restore .
 make clean
 
 sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
-sed -i '1i CC = zig cc' Makefile
+sed -i 's|^CFLAGS =.*$|CFLAGS = -I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing|g' Makefile
+sed -i '1i CC = zig cc -target x86_64-linux-gnu.2.17' Makefile
 
 make
 
-FN_TAR=MERQURY.FK.centos.tar.gz
+FN_TAR=MERQURY.FK.x86_64-linux-gnu.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $(make -p | grep "^all: " | sed 's/^all://')
 
