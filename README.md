@@ -236,6 +236,8 @@ rm -fr zlib-1.3.1
 
 ### FASTK
 
+Built under a CentOS 7 VM.
+
 ```shell
 cd FASTK
 
@@ -244,7 +246,7 @@ make clean
 
 make CC="zig cc -D_GNU_SOURCE"
 
-FN_TAR=FASTK.x86_64-linux-gnu.tar.gz
+FN_TAR=FASTK.centos.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
 
