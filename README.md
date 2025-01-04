@@ -8,6 +8,7 @@
   * [Builds](#builds)
     * [DAZZ_DB](#dazz_db)
     * [DALIGNER](#daligner)
+    * [zlib](#zlib)
     * [FASTK](#fastk)
     * [MERQURY.FK](#merquryfk)
     * [FASTGA](#fastga)
@@ -297,9 +298,9 @@ cd FASTGA
 git restore .
 make clean
 
-make CC="zig cc"
+make CC="zig cc -target x86_64-linux-gnu.2.17" CFLAGS="-I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing"
 
-FN_TAR=FASTGA.centos.tar.gz
+FN_TAR=FASTGA.x86_64-linux-gnu.tar.gz
 GZIP=-9 tar cvfz ${FN_TAR} \
     $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
 
