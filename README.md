@@ -19,21 +19,36 @@
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
+
+This project provides cross-compiled binaries for various bioinformatics tools targeting CentOS 7 (glibc 2.17) environment. It uses Zig as the cross-compiler and Rust for some components.
+
+## Requirements
+
+- Linux or Windows WSL
+- Zig 0.14.0-dev.2371+c013f45ad
+- Rust (latest stable version)
+- jq 1.7.1+
+- Git (latest version)
+
 ## Zig
 
 ```shell
-# Cross compiling
+# Install required tools
 brew install zig jq
+
+# Verify Zig target
 zig targets | jq .libc
 
 ```
 
 ```shell
+# Download and install Zig
 curl -L https://ziglang.org/builds/zig-linux-x86_64-0.14.0-dev.2371+c013f45ad.tar.xz > zig.tar.xz
 tar xvfJ zig.tar.xz
 mv zig-linux-x86_64* zig
 ln -s $HOME/share/zig/zig $HOME/bin/zig
 
+# Download and install jq
 curl -LO https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
 chmod +x jq-linux-amd64
 mv jq-linux-amd64 ~/bin/jq
@@ -43,15 +58,20 @@ mv jq-linux-amd64 ~/bin/jq
 ## Rust
 
 ```shell
+# Install Rust using rustup
 curl https://sh.rustup.rs -sSf | bash -s -- -y
 
+# Install cargo-zigbuild for cross-compiling Rust projects
 cargo install --locked cargo-zigbuild
 
 ```
 
 ## Submodules
 
+This section clones and sets up all required git submodules at specific commits for reproducibility.
+
 ```shell
+# Create directory for storing build artifacts
 mkdir -p tar
 
 # DAZZ_DB
@@ -145,6 +165,11 @@ git commit -m "Update anchr to fadc09f"
 ```
 
 ## Builds
+
+This section contains build instructions for each component. Note that:
+1. All builds use Zig as the cross-compiler targeting glibc 2.17
+2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
+3. Each build is followed by cleanup to restore the source directory to its original state
 
 ### DAZZ_DB
 
@@ -451,7 +476,13 @@ git commit -a -m "${FN_TAR}"
 
 ## Download and install binaries to `~/bin`
 
+This section provides instructions for downloading and installing all built binaries to your `~/bin` directory. The process:
+1. Creates the target directory if it doesn't exist
+2. Fetches the list of available binaries from GitHub
+3. Downloads and extracts each binary package in parallel
+
 ```shell
+# Create target directory if it doesn't exist
 mkdir -p $HOME/bin
 
 curl -fsSL \
