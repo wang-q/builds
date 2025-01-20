@@ -2,6 +2,7 @@
 
 <!-- TOC -->
 * [Build binaries for glibc 2.17 (CentOS 7)](#build-binaries-for-glibc-217-centos-7)
+  * [Requirements](#requirements)
   * [Zig](#zig)
   * [Rust](#rust)
   * [Submodules](#submodules)
@@ -20,7 +21,8 @@
 <!-- TOC -->
 
 
-This project provides cross-compiled binaries for various bioinformatics tools targeting CentOS 7 (glibc 2.17) environment. It uses Zig as the cross-compiler and Rust for some components.
+This project provides cross-compiled binaries for various bioinformatics tools targeting CentOS 7
+(glibc 2.17) environment. It uses Zig as the cross-compiler and Rust for some components.
 
 ## Requirements
 
@@ -168,6 +170,7 @@ git commit -m "Update anchr to fadc09f"
 ## Builds
 
 This section contains build instructions for each component. Note that:
+
 1. All builds use Zig as the cross-compiler targeting glibc 2.17
 2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
 3. Each build is followed by cleanup to restore the source directory to its original state
@@ -477,7 +480,9 @@ git commit -a -m "${FN_TAR}"
 
 ## Download and install binaries to `~/bin`
 
-This section provides instructions for downloading and installing all built binaries to your `~/bin` directory. The process:
+This section provides instructions for downloading and installing all built binaries to your `~/bin`
+directory. The process:
+
 1. Creates the target directory if it doesn't exist
 2. Fetches the list of available binaries from GitHub
 3. Downloads and extracts each binary package in parallel
