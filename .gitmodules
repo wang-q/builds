@@ -25,3 +25,6 @@
 [submodule "anchr"]
 	path = anchr
 	url = https://github.com/wang-q/anchr.git
+[submodule "pgr"]
+	path = pgr
+	url = https://github.com/wang-q/pgr.git
