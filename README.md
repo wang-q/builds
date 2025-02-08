@@ -34,7 +34,7 @@ This project provides cross-compiled binaries for various bioinformatics tools t
 
 ## Zig
 
-```shell
+```bash
 # Install required tools
 brew install zig jq
 
@@ -43,7 +43,7 @@ zig targets | jq .libc
 
 ```
 
-```shell
+```bash
 # Download and install Zig
 curl -L https://ziglang.org/builds/zig-linux-x86_64-0.14.0-dev.2371+c013f45ad.tar.xz > zig.tar.xz
 tar xvfJ zig.tar.xz
@@ -59,7 +59,7 @@ mv jq-linux-amd64 ~/bin/jq
 
 ## Rust
 
-```shell
+```bash
 # Install Rust using rustup
 curl https://sh.rustup.rs -sSf | bash -s -- -y
 
@@ -72,7 +72,7 @@ cargo install --locked cargo-zigbuild
 
 This section clones and sets up all required git submodules at specific commits for reproducibility.
 
-```shell
+```bash
 # Create directory for storing build artifacts
 mkdir -p tar
 
@@ -142,10 +142,19 @@ git commit -m "Update hnsm to 5b5ec06"
 git submodule update --init hnsm
 cd hnsm
 git pull
-git checkout e3378fe
+git checkout f237c5d
 cd ..
 git add hnsm
-git commit -m "Update hnsm to e3378fe"
+git commit -m "Update hnsm to f237c5d"
+
+# pgr
+git submodule add https://github.com/wang-q/pgr.git pgr
+
+cd pgr
+git checkout v0.1.0
+cd ..
+git add pgr
+git commit -m "Update intspan to v0.1.0"
 
 # fd
 git submodule add https://github.com/sharkdp/fd.git fd
@@ -177,7 +186,7 @@ This section contains build instructions for each component. Note that:
 
 ### DAZZ_DB
 
-```shell
+```bash
 cd DAZZ_DB
 
 git restore .
@@ -218,7 +227,7 @@ git commit -a -m "${FN_TAR}"
 
 ### DALIGNER
 
-```shell
+```bash
 cd DALIGNER
 
 git restore .
@@ -246,7 +255,7 @@ git commit -a -m "${FN_TAR}"
 
 ### zlib
 
-```shell
+```bash
 mkdir -p static
 
 curl -L https://zlib.net/zlib-1.3.1.tar.gz |
@@ -267,7 +276,7 @@ rm -fr zlib-1.3.1
 
 Built under a CentOS 7 VM.
 
-```shell
+```bash
 cd FASTK
 
 git restore .
@@ -294,7 +303,7 @@ git commit -a -m "${FN_TAR}"
 
 ### MERQURY.FK
 
-```shell
+```bash
 cd MERQURY.FK
 
 git restore .
@@ -323,7 +332,7 @@ git commit -a -m "${FN_TAR}"
 
 ### FASTGA
 
-```shell
+```bash
 cd FASTGA
 
 git restore .
@@ -348,7 +357,7 @@ git commit -a -m "${FN_TAR}"
 
 ### intspan
 
-```shell
+```bash
 mkdir -p /tmp/cargo
 export CARGO_TARGET_DIR=/tmp/cargo
 
@@ -381,7 +390,7 @@ git commit -a -m "${FN_TAR}"
 
 ### hnsm
 
-```shell
+```bash
 mkdir -p /tmp/cargo
 export CARGO_TARGET_DIR=/tmp/cargo
 
@@ -414,7 +423,7 @@ git commit -a -m "${FN_TAR}"
 
 ### fd
 
-```shell
+```bash
 mkdir -p /tmp/cargo
 export CARGO_TARGET_DIR=/tmp/cargo
 
@@ -447,7 +456,7 @@ git commit -a -m "${FN_TAR}"
 
 ### anchr
 
-```shell
+```bash
 mkdir -p /tmp/cargo
 export CARGO_TARGET_DIR=/tmp/cargo
 
@@ -487,7 +496,7 @@ directory. The process:
 2. Fetches the list of available binaries from GitHub
 3. Downloads and extracts each binary package in parallel
 
-```shell
+```bash
 # Create target directory if it doesn't exist
 mkdir -p $HOME/bin
 
