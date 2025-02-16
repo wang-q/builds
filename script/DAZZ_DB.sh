@@ -55,7 +55,7 @@ FN_TAR="DAZZ_DB.${OS_TYPE}.tar.gz"
 
 # Package the build results
 GZIP=-9 tar cvfz ${FN_TAR} \
-    $(make -p | grep "^all: " | sed 's/^all://')
+    $(make -p | grep "^all: " | sed 's/^all: //')
 
 # Move the compressed file to the tar directory
 mv ${FN_TAR} ../tar/

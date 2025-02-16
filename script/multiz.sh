@@ -21,8 +21,8 @@ elif [ "$OS_TYPE" == "macos" ]; then
     TARGET_ARCH="aarch64-macos-none"
 fi
 
-# Enter the project directory
-cd DALIGNER
+# Enter the multiz project directory
+cd multiz
 
 # Restore the Git repository to its original state
 git restore .
@@ -30,15 +30,11 @@ git restore .
 # Clean the build environment
 make clean
 
-# Modify the Makefile to use zig cc and specify the target architecture
-sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
-sed -i "1i CC = zig cc -target ${TARGET_ARCH}" Makefile
-
-# Build the project
-make
+# Build the project with the specified target architecture and flags
+make CC="zig cc -target ${TARGET_ARCH}" CFLAGS="-I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing -fcommon"
 
 # Define the name of the compressed file
-FN_TAR="DALIGNER.${OS_TYPE}.tar.gz"
+FN_TAR="multiz.${OS_TYPE}.tar.gz"
 
 # Package the build results
 GZIP=-9 tar cvfz ${FN_TAR} \

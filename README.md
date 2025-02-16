@@ -7,8 +7,10 @@
   * [Rust](#rust)
   * [Submodules](#submodules)
   * [Builds](#builds)
-    * [zlib](#zlib)
+    * [No deps](#no-deps)
+    * [Depend on zlib](#depend-on-zlib)
     * [FASTK](#fastk)
+    * [Rust projects](#rust-projects)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
@@ -118,6 +120,15 @@ cd ..
 git add FASTGA
 git commit -m "Update FASTGA to e97c33e"
 
+# multiz
+git submodule add https://github.com/wang-q/multiz.git multiz
+
+cd multiz
+git checkout 633c0f7
+cd ..
+git add multiz
+git commit -m "Update multiz to 633c0f7"
+
 # intspan
 git submodule add https://github.com/wang-q/intspan.git intspan
 
@@ -181,22 +192,15 @@ This section contains build instructions for each component. Note that:
 2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
 3. Each build is followed by cleanup to restore the source directory to its original state
 
+### No deps
+
 ```bash
 bash script/DAZZ_DB.sh
 bash script/DALIGNER.sh
-bash script/MERQURY.FK.sh
-bash script/FASTGA.sh
-
-bash script/rust.sh fd
-
-bash script/rust.sh intspan
-bash script/rust.sh hnsm
-bash script/rust.sh pgr
-bash script/rust.sh anchr
 
 ```
 
-### zlib
+### Depend on zlib
 
 ```bash
 mkdir -p static
@@ -212,6 +216,13 @@ make install
 
 cd ..
 rm -fr zlib-1.3.1
+
+```
+
+```bash
+bash script/MERQURY.FK.sh
+bash script/FASTGA.sh
+bash script/multiz.sh
 
 ```
 
@@ -241,6 +252,18 @@ rm LIBDEFLATE/null.o
 cd ..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
+
+```
+
+### Rust projects
+
+```bash
+bash script/rust.sh fd
+
+bash script/rust.sh intspan
+bash script/rust.sh hnsm
+bash script/rust.sh pgr
+bash script/rust.sh anchr
 
 ```
 

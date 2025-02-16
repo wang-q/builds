@@ -21,22 +21,6 @@ elif [ "$OS_TYPE" == "macos" ]; then
     TARGET_ARCH="aarch64-macos-none"
 fi
 
-# Create a directory for static libraries
-mkdir -p static
-
-# Download and extract zlib
-curl -L https://zlib.net/zlib-1.3.1.tar.gz | tar xvz
-
-# Build zlib with the specified target architecture
-cd zlib-1.3.1
-CC="zig cc -target ${TARGET_ARCH}" ./configure --static --prefix=../static
-make
-make install
-cd ..
-
-# Clean up the zlib source directory
-rm -fr zlib-1.3.1
-
 # Enter the MERQURY.FK project directory
 cd MERQURY.FK
 
@@ -59,7 +43,7 @@ FN_TAR="MERQURY.FK.${OS_TYPE}.tar.gz"
 
 # Package the build results
 GZIP=-9 tar cvfz ${FN_TAR} \
-    $(make -p | grep "^all: " | sed 's/^all://')
+    $(make -p | grep "^all: " | sed 's/^all: //')
 
 # Move the compressed file to the tar directory
 mv ${FN_TAR} ../tar/
