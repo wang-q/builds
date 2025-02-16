@@ -38,8 +38,8 @@ make
 mv src/trf ../
 cd ..
 
-# Define the name of the compressed file (strip .2.17 from TARGET_ARCH if present)
-FN_TAR="trf.${TARGET_ARCH%.2.17}.tar.gz"
+# Define the name of the compressed file
+FN_TAR="trf.${OS_TYPE}.tar.gz"
 
 # Package the build results
 GZIP=-9 tar cvfz ${FN_TAR} \
