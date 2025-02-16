@@ -192,10 +192,12 @@ bash script/DALIGNER.sh
 bash script/MERQURY.FK.sh
 bash script/FASTGA.sh
 
+bash script/rust.sh fd
+
 bash script/rust.sh intspan
 bash script/rust.sh hnsm
 bash script/rust.sh pgr
-bash script/rust.sh fd
+bash script/rust.sh anchr
 
 ```
 
