@@ -193,6 +193,7 @@ bash script/MERQURY.FK.sh
 bash script/FASTGA.sh
 
 bash script/rust.sh intspan
+bash script/rust.sh hnsm
 
 ```
 
