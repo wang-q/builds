@@ -32,7 +32,7 @@ cd intspan
 cargo zigbuild --target ${TARGET_ARCH} --release
 
 # List the contents of the release directory
-ll $CARGO_TARGET_DIR/${TARGET_ARCH}/release/
+ls $CARGO_TARGET_DIR/${TARGET_ARCH}/release/
 
 # Extract the names of binary targets from Cargo.toml
 BINS=$(
