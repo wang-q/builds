@@ -7,14 +7,11 @@
   * [Rust](#rust)
   * [Submodules](#submodules)
   * [Builds](#builds)
-    * [DAZZ_DB](#dazz_db)
-    * [DALIGNER](#daligner)
     * [zlib](#zlib)
     * [FASTK](#fastk)
-    * [MERQURY.FK](#merquryfk)
-    * [FASTGA](#fastga)
     * [intspan](#intspan)
     * [hnsm](#hnsm)
+    * [pgr](#pgr)
     * [fd](#fd)
     * [anchr](#anchr)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
@@ -65,6 +62,11 @@ curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 # Install cargo-zigbuild for cross-compiling Rust projects
 cargo install --locked cargo-zigbuild
+
+rustup target list
+
+rustup target add x86_64-unknown-linux-gnu
+rustup target add aarch64-apple-darwin
 
 ```
 
@@ -193,6 +195,8 @@ bash script/MERQURY.FK.sh
 
 bash script/FASTGA.sh
 
+bash script/intspan.sh
+
 ```
 
 ### zlib
@@ -236,31 +240,6 @@ git restore .
 make clean
 rm LIBDEFLATE/a.out
 rm LIBDEFLATE/null.o
-
-cd ..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"
-
-```
-
-### FASTGA
-
-```bash
-cd FASTGA
-
-git restore .
-make clean
-
-make CC="zig cc -target x86_64-linux-gnu.2.17" CFLAGS="-I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing"
-
-FN_TAR=FASTGA.x86_64-linux-gnu.tar.gz
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
-
-mv ${FN_TAR} ../tar/
-
-git restore .
-make clean
 
 cd ..
 git add "tar/${FN_TAR}"
