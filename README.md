@@ -9,11 +9,6 @@
   * [Builds](#builds)
     * [zlib](#zlib)
     * [FASTK](#fastk)
-    * [intspan](#intspan)
-    * [hnsm](#hnsm)
-    * [pgr](#pgr)
-    * [fd](#fd)
-    * [anchr](#anchr)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
@@ -242,39 +237,6 @@ git restore .
 make clean
 rm LIBDEFLATE/a.out
 rm LIBDEFLATE/null.o
-
-cd ..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"
-
-```
-
-### anchr
-
-```bash
-mkdir -p /tmp/cargo
-export CARGO_TARGET_DIR=/tmp/cargo
-
-cd anchr
-
-cargo zigbuild --target x86_64-unknown-linux-gnu.2.17 --release
-ll $CARGO_TARGET_DIR/x86_64-unknown-linux-gnu/release/
-
-BINS=$(
-    cargo read-manifest |
-        jq --raw-output '.targets[] | select( .kind[0] == "bin" ) | .name '
-)
-
-for BIN in $BINS; do
-    cp $CARGO_TARGET_DIR/x86_64-unknown-linux-gnu/release/$BIN .
-done
-
-FN_TAR=anchr.x86_64-unknown-linux-gnu.tar.gz
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $BINS
-
-mv ${FN_TAR} ../tar/
-rm $BINS
 
 cd ..
 git add "tar/${FN_TAR}"
