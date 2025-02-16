@@ -8,10 +8,11 @@
   * [Submodules](#submodules)
   * [Tarballs](#tarballs)
   * [Builds](#builds)
-    * [Makefile - no deps](#makefile---no-deps)
-    * [Makefile - depend on zlib](#makefile---depend-on-zlib)
+    * [`Makefile` - no deps](#makefile---no-deps)
+    * [`Makefile` - depend on zlib](#makefile---depend-on-zlib)
     * [FASTK](#fastk)
-    * [Configure](#configure)
+    * [`./configure`](#configure)
+    * [`cmake`](#cmake)
     * [Rust projects](#rust-projects)
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
@@ -131,6 +132,15 @@ cd ..
 git add multiz
 git commit -m "Update multiz to 633c0f7"
 
+# bifrost
+git submodule add https://github.com/pmelsted/bifrost.git bifrost
+
+cd bifrost
+git checkout v1.3.5
+cd ..
+git add bifrost
+git commit -m "Update bifrost to v1.3.5"
+
 # intspan
 git submodule add https://github.com/wang-q/intspan.git intspan
 
@@ -202,7 +212,7 @@ This section contains build instructions for each component. Note that:
 2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
 3. Each build is followed by cleanup to restore the source directory to its original state
 
-### Makefile - no deps
+### `Makefile` - no deps
 
 ```bash
 bash script/DAZZ_DB.sh
@@ -210,7 +220,7 @@ bash script/DALIGNER.sh
 
 ```
 
-### Makefile - depend on zlib
+### `Makefile` - depend on zlib
 
 ```bash
 mkdir -p static
@@ -265,10 +275,17 @@ git commit -a -m "${FN_TAR}"
 
 ```
 
-### Configure
+### `./configure`
 
 ```bash
 bash script/trf.sh
+
+```
+
+### `cmake`
+
+```bash
+bash script/bifrost.sh
 
 ```
 
