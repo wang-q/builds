@@ -1,19 +1,19 @@
 # Build binaries for glibc 2.17 (CentOS 7)
 
 <!-- TOC -->
-
 * [Build binaries for glibc 2.17 (CentOS 7)](#build-binaries-for-glibc-217-centos-7)
-    * [Requirements](#requirements)
-    * [Zig](#zig)
-    * [Rust](#rust)
-    * [Submodules](#submodules)
-    * [Builds](#builds)
-        * [No deps](#no-deps)
-        * [Depend on zlib](#depend-on-zlib)
-        * [FASTK](#fastk)
-        * [Rust projects](#rust-projects)
-    * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
-
+  * [Requirements](#requirements)
+  * [Zig](#zig)
+  * [Rust](#rust)
+  * [Submodules](#submodules)
+  * [Tarballs](#tarballs)
+  * [Builds](#builds)
+    * [Makefile - no deps](#makefile---no-deps)
+    * [Makefile - depend on zlib](#makefile---depend-on-zlib)
+    * [FASTK](#fastk)
+    * [Configure](#configure)
+    * [Rust projects](#rust-projects)
+  * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
 
