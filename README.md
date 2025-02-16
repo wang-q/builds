@@ -191,6 +191,8 @@ bash script/DALIGNER.sh
 
 bash script/MERQURY.FK.sh
 
+bash script/FASTGA.sh
+
 ```
 
 ### zlib
@@ -234,35 +236,6 @@ git restore .
 make clean
 rm LIBDEFLATE/a.out
 rm LIBDEFLATE/null.o
-
-cd ..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"
-
-```
-
-### MERQURY.FK
-
-```bash
-cd MERQURY.FK
-
-git restore .
-make clean
-
-sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
-sed -i 's|^CFLAGS =.*$|CFLAGS = -I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing|g' Makefile
-sed -i '1i CC = zig cc -target x86_64-linux-gnu.2.17' Makefile
-
-make
-
-FN_TAR=MERQURY.FK.x86_64-linux-gnu.tar.gz
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $(make -p | grep "^all: " | sed 's/^all://')
-
-mv ${FN_TAR} ../tar/
-
-git restore .
-make clean
 
 cd ..
 git add "tar/${FN_TAR}"
