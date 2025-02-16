@@ -189,33 +189,7 @@ bash script/DAZZ_DB.sh
 
 bash script/DALIGNER.sh
 
-```
-
-### DALIGNER
-
-```bash
-cd DALIGNER
-
-git restore .
-make clean
-
-sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
-sed -i '1i CC = zig cc -target x86_64-linux-gnu.2.17' Makefile
-
-make
-
-FN_TAR=DALIGNER.x86_64-linux-gnu.tar.gz
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $(make -p | grep "^all: " | sed 's/^all://')
-
-mv ${FN_TAR} ../tar/
-
-git restore .
-make clean
-
-cd ..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"
+bash script/MERQURY.FK.sh
 
 ```
 
