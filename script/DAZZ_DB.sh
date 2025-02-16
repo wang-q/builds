@@ -40,7 +40,6 @@ sed -i '/^DB2quiva:/{N;N;d;}' Makefile
 sed -i '/^arrow2DB:/{N;N;d;}' Makefile
 sed -i '/^DB2arrow:/{N;N;d;}' Makefile
 
-# Remove specific strings from the Makefile
 sed -i \
     -e 's/quiva2DB//g' \
     -e 's/DB2quiva//g' \

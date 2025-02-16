@@ -184,44 +184,10 @@ This section contains build instructions for each component. Note that:
 2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
 3. Each build is followed by cleanup to restore the source directory to its original state
 
-### DAZZ_DB
-
 ```bash
-cd DAZZ_DB
+bash script/DAZZ_DB.sh
 
-git restore .
-make clean
-
-sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
-sed -i '1i CC = zig cc -target x86_64-linux-gnu.2.17' Makefile
-# sed -i '1i CC = zig cc' Makefile
-
-sed -i '/^quiva2DB:/{N;N;d;}' Makefile
-sed -i '/^DB2quiva:/{N;N;d;}' Makefile
-sed -i '/^arrow2DB:/{N;N;d;}' Makefile
-sed -i '/^DB2arrow:/{N;N;d;}' Makefile
-
-sed -i \
-    -e 's/quiva2DB//g' \
-    -e 's/DB2quiva//g' \
-    -e 's/arrow2DB//g' \
-    -e 's/DB2arrow//g' \
-    Makefile
-
-make
-
-FN_TAR=DAZZ_DB.x86_64-linux-gnu.tar.gz
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $(make -p | grep "^all: " | sed 's/^all://')
-
-mv ${FN_TAR} ../tar/
-
-git restore .
-make clean
-
-cd ..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"
+bash script/DALIGNER.sh
 
 ```
 
