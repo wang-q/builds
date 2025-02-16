@@ -31,6 +31,9 @@ cd intspan
 # Build the project with the specified target architecture
 cargo zigbuild --target ${TARGET_ARCH} --release
 
+# Strip .2.17 from TARGET_ARCH if present
+TARGET_ARCH="${TARGET_ARCH%.2.17}"
+
 # List the contents of the release directory
 ls $CARGO_TARGET_DIR/${TARGET_ARCH}/release/
 
