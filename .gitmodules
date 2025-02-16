@@ -28,3 +28,6 @@
 [submodule "pgr"]
 	path = pgr
 	url = https://github.com/wang-q/pgr.git
+[submodule "multiz"]
+	path = multiz
+	url = https://github.com/wang-q/multiz.git
