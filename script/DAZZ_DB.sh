@@ -1,0 +1,71 @@
+#!/bin/bash
+
+BASH_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+cd "${BASH_DIR}"/..
+
+# Set the default OS type to 'linux'
+OS_TYPE=${1:-linux}
+
+# Validate the OS type
+if [[ "$OS_TYPE" != "linux" && "$OS_TYPE" != "macos" ]]; then
+    echo "Unsupported os_type: $OS_TYPE"
+    echo "Supported os_type: linux, macos"
+    exit 1
+fi
+
+# Set the target architecture based on the OS type
+if [ "$OS_TYPE" == "linux" ]; then
+    TARGET_ARCH="x86_64-linux-gnu.2.17"
+elif [ "$OS_TYPE" == "macos" ]; then
+    TARGET_ARCH="aarch64-macos-none"
+fi
+
+# Enter the project directory
+cd DAZZ_DB
+
+# Restore the Git repository to its original state
+git restore .
+
+# Clean the build environment
+make clean
+
+# Modify the Makefile to use zig cc and specify the target architecture
+sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile
+sed -i "1i CC = zig cc -target ${TARGET_ARCH}" Makefile
+
+# Remove specific targets from the Makefile
+sed -i '/^quiva2DB:/{N;N;d;}' Makefile
+sed -i '/^DB2quiva:/{N;N;d;}' Makefile
+sed -i '/^arrow2DB:/{N;N;d;}' Makefile
+sed -i '/^DB2arrow:/{N;N;d;}' Makefile
+
+# Remove specific strings from the Makefile
+sed -i \
+    -e 's/quiva2DB//g' \
+    -e 's/DB2quiva//g' \
+    -e 's/arrow2DB//g' \
+    -e 's/DB2arrow//g' \
+    Makefile
+
+# Build the project
+make
+
+# Define the name of the compressed file
+FN_TAR="DAZZ_DB.${OS_TYPE}.tar.gz"
+
+# Package the build results
+GZIP=-9 tar cvfz ${FN_TAR} \
+    $(make -p | grep "^all: " | sed 's/^all://')
+
+# Move the compressed file to the tar directory
+mv ${FN_TAR} ../tar/
+
+# Restore the Git repository and clean the build environment
+git restore .
+make clean
+
+# Return to the parent directory and commit the compressed file to the Git repository
+cd ..
+git add "tar/${FN_TAR}"
+git commit -a -m "${FN_TAR}"
