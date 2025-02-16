@@ -1,17 +1,19 @@
 # Build binaries for glibc 2.17 (CentOS 7)
 
 <!-- TOC -->
+
 * [Build binaries for glibc 2.17 (CentOS 7)](#build-binaries-for-glibc-217-centos-7)
-  * [Requirements](#requirements)
-  * [Zig](#zig)
-  * [Rust](#rust)
-  * [Submodules](#submodules)
-  * [Builds](#builds)
-    * [No deps](#no-deps)
-    * [Depend on zlib](#depend-on-zlib)
-    * [FASTK](#fastk)
-    * [Rust projects](#rust-projects)
-  * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
+    * [Requirements](#requirements)
+    * [Zig](#zig)
+    * [Rust](#rust)
+    * [Submodules](#submodules)
+    * [Builds](#builds)
+        * [No deps](#no-deps)
+        * [Depend on zlib](#depend-on-zlib)
+        * [FASTK](#fastk)
+        * [Rust projects](#rust-projects)
+    * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
+
 <!-- TOC -->
 
 
@@ -184,6 +186,14 @@ git commit -m "Update anchr to fadc09f"
 
 ```
 
+## Tarballs
+
+```bash
+mkdir -p trf
+curl -L https://github.com/Benson-Genomics-Lab/TRF/archive/refs/tags/v4.09.1.tar.gz -o trf/trf.src.tar.gz
+
+```
+
 ## Builds
 
 This section contains build instructions for each component. Note that:
@@ -192,7 +202,7 @@ This section contains build instructions for each component. Note that:
 2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
 3. Each build is followed by cleanup to restore the source directory to its original state
 
-### No deps
+### Makefile - no deps
 
 ```bash
 bash script/DAZZ_DB.sh
@@ -200,7 +210,7 @@ bash script/DALIGNER.sh
 
 ```
 
-### Depend on zlib
+### Makefile - depend on zlib
 
 ```bash
 mkdir -p static
@@ -252,6 +262,13 @@ rm LIBDEFLATE/null.o
 cd ..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
+
+```
+
+### Configure
+
+```bash
+bash script/trf.sh
 
 ```
 
