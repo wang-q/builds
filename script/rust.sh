@@ -4,8 +4,17 @@ BASH_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 cd "${BASH_DIR}"/..
 
+# Check if the OS type is provided as an argument
+if [ -z "$1" ]; then
+    echo "Usage: $0 <PROJECT_NAME> [os_type]"
+    echo "Supported os_type: linux, macos"
+    echo "Example: $0 intspan linux"
+    exit 1
+fi
+PROJECT_NAME=$1
+
 # Set the default OS type to 'linux'
-OS_TYPE=${1:-linux}
+OS_TYPE=${2:-linux}
 
 # Validate the OS type
 if [[ "$OS_TYPE" != "linux" && "$OS_TYPE" != "macos" ]]; then
@@ -25,8 +34,8 @@ fi
 mkdir -p /tmp/cargo
 export CARGO_TARGET_DIR=/tmp/cargo
 
-# Enter the intspan project directory
-cd intspan
+# Enter the PROJECT_NAME project directory
+cd ${PROJECT_NAME}
 
 # Build the project with the specified target architecture
 cargo zigbuild --target ${TARGET_ARCH} --release
@@ -49,7 +58,7 @@ for BIN in $BINS; do
 done
 
 # Define the name of the compressed file
-FN_TAR="intspan.${OS_TYPE}.tar.gz"
+FN_TAR="${PROJECT_NAME}.${OS_TYPE}.tar.gz"
 
 # Package the binaries into a compressed file
 GZIP=-9 tar cvfz ${FN_TAR} \
