@@ -44,8 +44,7 @@ cd ..
 FN_TAR="trf.${OS_TYPE}.tar.gz"
 
 # Create compressed archive
-tar --gzip --compress-level=9 -cvf ${FN_TAR} \
-    trf
+tar -cf - trf | gzip -9 > ${FN_TAR}
 
 # Move archive to the central tar directory
 mv ${FN_TAR} ../tar/
