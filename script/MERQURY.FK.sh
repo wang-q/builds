@@ -51,8 +51,3 @@ tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
 # Move archive to the central tar directory
 mv ${FN_TAR} ${BASH_DIR}/../tar/
-
-# Commit the new archive
-cd ${BASH_DIR}/..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"

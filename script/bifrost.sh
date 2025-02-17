@@ -36,20 +36,27 @@ cd ${TEMP_DIR}
 ASM="zig cc" \
 CC="zig cc" \
 CXX="zig c++" \
-CFLAGS="-I${BASH_DIR}/../static/include" \
-LDFLAGS="-L${BASH_DIR}/../static/lib" \
+CFLAGS="-I${BASH_DIR}/../static-${OS_TYPE}/include" \
+LDFLAGS="-L${BASH_DIR}/../static-${OS_TYPE}/lib" \
 cmake \
     -DCMAKE_ASM_COMPILER_TARGET="${TARGET_ARCH}" \
     -DCMAKE_C_COMPILER_TARGET="${TARGET_ARCH}" \
     -DCMAKE_CXX_COMPILER_TARGET="${TARGET_ARCH}" \
-    -DZLIB_INCLUDE_DIR="${BASH_DIR}/../static/include" \
-    -DZLIB_LIBRARY="${BASH_DIR}/../static/lib/libz.a" \
+    -DZLIB_INCLUDE_DIR="${BASH_DIR}/../static-${OS_TYPE}/include" \
+    -DZLIB_LIBRARY="${BASH_DIR}/../static-${OS_TYPE}/lib/libz.a" \
     -DCMAKE_CXX_FLAGS="-Wno-unqualified-std-cast-call" \
     -DMAX_KMER_SIZE=128 \
     -S . -B build
 
 # Build the project
 cmake --build build
+
+if [ $? -eq 0 ]; then
+    echo "Build successful"
+else
+    echo "Build failed"
+    exit 1
+fi  
 
 # Get binary names based on OS type
 if [ "$OS_TYPE" == "linux" ]; then
@@ -67,9 +74,3 @@ tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
 # Move archive to the central tar directory
 mv ${FN_TAR} ${BASH_DIR}/../tar/
-
-# Return to the original directory
-cd ${BASH_DIR}/..
-
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"

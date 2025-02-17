@@ -50,10 +50,3 @@ tar -cf - -C src trf | gzip -9 > ${FN_TAR}
 
 # Move archive to the central tar directory
 mv ${FN_TAR} ${BASH_DIR}/../tar/
-
-# Clean up is handled by trap command
-
-# Return to project root and commit the new archive
-cd ${BASH_DIR}/..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"

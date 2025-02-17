@@ -35,7 +35,7 @@ cd ${TEMP_DIR}
 # Build multiz with Zig cross-compiler and optimization flags
 # Build the project with the specified target architecture and flags
 make CC="zig cc -target ${TARGET_ARCH}" \
-    CFLAGS="-I${BASH_DIR}/../static-${OS_TYPE}/include -L${BASH_DIR}/../static-${OS_TYPE}/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing" \
+    CFLAGS="-I${BASH_DIR}/../static-${OS_TYPE}/include -L${BASH_DIR}/../static-${OS_TYPE}/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing -fcommon" \
     || exit 1
 
 # Get binary names from Makefile
@@ -49,8 +49,3 @@ tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
 # Move archive to the central tar directory
 mv ${FN_TAR} ${BASH_DIR}/../tar/
-
-# Commit the new archive
-cd ${BASH_DIR}/..
-git add "tar/${FN_TAR}"
-git commit -a -m "${FN_TAR}"
