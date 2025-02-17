@@ -26,6 +26,14 @@ fi
 # Enter the trf directory
 cd trf || exit 1
 
+# Create temp directory
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf ${TEMP_DIR}' EXIT
+
+# Copy source to temp directory
+cp trf.src.tar.gz ${TEMP_DIR}/
+cd ${TEMP_DIR}
+
 # Extract the TRF source code
 tar xvfz trf.src.tar.gz || exit 1
 
@@ -34,26 +42,18 @@ cd TRF-* || exit 1
 CC="zig cc -target ${TARGET_ARCH}" ./configure || exit 1
 make || exit 1
 
-# Move the compiled binary to the parent directory
-mv src/trf ../
-
-# Move back to trf directory
-cd ..
-
 # Define the name of the compressed file based on OS type
 FN_TAR="trf.${OS_TYPE}.tar.gz"
 
 # Create compressed archive
-tar -cf - trf | gzip -9 > ${FN_TAR}
+tar -cf - -C src trf | gzip -9 > ${FN_TAR}
 
 # Move archive to the central tar directory
-mv ${FN_TAR} ../tar/
+mv ${FN_TAR} ${BASH_DIR}/../tar/
 
-# Clean up build artifacts
-rm trf
-rm -fr TRF-*
+# Clean up is handled by trap command
 
 # Return to project root and commit the new archive
-cd ..
+cd ${BASH_DIR}/..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
