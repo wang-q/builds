@@ -24,7 +24,7 @@ This project provides cross-compiled binaries for various bioinformatics tools t
 ## Requirements
 
 - Linux or Windows WSL
-- Zig 0.14.0-dev.2371+c013f45ad
+- Zig 0.13.0
 - Rust (latest stable version)
 - jq 1.7.1+
 - Git (latest version)
@@ -32,17 +32,10 @@ This project provides cross-compiled binaries for various bioinformatics tools t
 ## Zig
 
 ```bash
-# Install required tools
-brew install zig jq
-
-# Verify Zig target
-zig targets | jq .libc
-
-```
-
-```bash
 # Download and install Zig
-curl -L https://ziglang.org/builds/zig-linux-x86_64-0.14.0-dev.2371+c013f45ad.tar.xz > zig.tar.xz
+mkdir -p $HOME/share
+cd $HOME/share
+curl -L https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz > zig.tar.xz
 tar xvfJ zig.tar.xz
 mv zig-linux-x86_64* zig
 ln -s $HOME/share/zig/zig $HOME/bin/zig
@@ -51,6 +44,9 @@ ln -s $HOME/share/zig/zig $HOME/bin/zig
 curl -LO https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
 chmod +x jq-linux-amd64
 mv jq-linux-amd64 ~/bin/jq
+
+# Verify Zig target
+zig targets | jq .libc
 
 ```
 
@@ -208,9 +204,9 @@ curl -L https://github.com/Benson-Genomics-Lab/TRF/archive/refs/tags/v4.09.1.tar
 
 This section contains build instructions for each component. Note that:
 
-1. All builds use Zig as the cross-compiler targeting glibc 2.17
+1. All builds use Zig as the cross-compiler targeting glibc 2.17 for Linux and aarch64 for macOS
 2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
-3. Each build is followed by cleanup to restore the source directory to its original state
+3. Each build is performed in a temporary directory to avoid polluting the source directory
 
 ### `Makefile` - no deps
 
@@ -223,14 +219,22 @@ bash script/DALIGNER.sh
 ### `Makefile` - depend on zlib
 
 ```bash
-mkdir -p static
+mkdir -p static-linux
+mkdir -p static-macos
 
 curl -L https://zlib.net/zlib-1.3.1.tar.gz |
     tar xvz
 
 cd zlib-1.3.1
 
-CC="zig cc -target x86_64-linux-gnu.2.17" ./configure --static --prefix=../static
+# Build for Linux
+CC="zig cc -target x86_64-linux-gnu.2.17" ./configure --static --prefix=../static-linux
+make
+make install
+
+# Clean and build for macOS
+make clean
+CC="zig cc -target aarch64-macos-none" ./configure --static --prefix=../static-macos
 make
 make install
 
@@ -323,8 +327,5 @@ bash install.sh
 
 # Install specific package(s)
 bash install.sh intspan multiz
-
-# Install multiple packages
-bash install.sh DAZZ_DB DALIGNER FASTGA
 
 ```
