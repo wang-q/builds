@@ -35,10 +35,10 @@ mkdir -p /tmp/cargo
 export CARGO_TARGET_DIR=/tmp/cargo
 
 # Enter the PROJECT_NAME project directory
-cd ${PROJECT_NAME}
+cd ${PROJECT_NAME} || exit 1
 
 # Build the project with the specified target architecture
-cargo zigbuild --target ${TARGET_ARCH} --release
+cargo zigbuild --target ${TARGET_ARCH} --release || exit 1
 
 # Strip .2.17 from TARGET_ARCH if present
 TARGET_ARCH="${TARGET_ARCH%.2.17}"
@@ -57,20 +57,19 @@ for BIN in $BINS; do
     cp $CARGO_TARGET_DIR/${TARGET_ARCH}/release/$BIN .
 done
 
-# Define the name of the compressed file
+# Define archive name based on OS type
 FN_TAR="${PROJECT_NAME}.${OS_TYPE}.tar.gz"
 
-# Package the binaries into a compressed file
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $BINS
+# Create compressed archive with maximum compression
+tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
-# Move the compressed file to the tar directory
+# Move archive to the central tar directory
 mv ${FN_TAR} ../tar/
 
 # Clean up the copied binaries
 rm $BINS
 
-# Return to the parent directory and commit the compressed file to the Git repository
+# Commit the new archive
 cd ..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
