@@ -22,32 +22,36 @@ elif [ "$OS_TYPE" == "macos" ]; then
 fi
 
 # Enter the FASTGA project directory
-cd FASTGA
+cd FASTGA || exit 1
 
 # Restore the Git repository to its original state
-git restore .
+git restore . || exit 1
 
 # Clean the build environment
 make clean
 
 # Build the project with the specified target architecture and flags
-make CC="zig cc -target ${TARGET_ARCH}" CFLAGS="-I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing"
+make CC="zig cc -target ${TARGET_ARCH}" \
+    CFLAGS="-I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing" \
+    || exit 1
 
-# Define the name of the compressed file
+# Get binary names from Makefile
+BINS=$(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
+
+# Define archive name based on OS type
 FN_TAR="FASTGA.${OS_TYPE}.tar.gz"
 
-# Package the build results
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
+# Create compressed archive with maximum compression
+tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
-# Move the compressed file to the tar directory
+# Move archive to the central tar directory
 mv ${FN_TAR} ../tar/
 
-# Restore the Git repository and clean the build environment
+# Clean up build environment
 git restore .
 make clean
 
-# Return to the parent directory and commit the compressed file to the Git repository
+# Commit the new archive
 cd ..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
