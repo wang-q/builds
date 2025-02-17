@@ -24,34 +24,52 @@ fi
 # Enter the bifrost project directory
 cd bifrost
 
-# Restore the Git repository to its original state
-git restore .
+# Create temp directory
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf ${TEMP_DIR}' EXIT
 
+# Copy source to temp directory
+cp -R . ${TEMP_DIR}/
+cd ${TEMP_DIR}
+
+# Configure CMake with Zig compiler
 ASM="zig cc" \
 CC="zig cc" \
 CXX="zig c++" \
+CFLAGS="-I${BASH_DIR}/../static/include" \
+LDFLAGS="-L${BASH_DIR}/../static/lib" \
 cmake \
     -DCMAKE_ASM_COMPILER_TARGET="${TARGET_ARCH}" \
     -DCMAKE_C_COMPILER_TARGET="${TARGET_ARCH}" \
     -DCMAKE_CXX_COMPILER_TARGET="${TARGET_ARCH}" \
+    -DZLIB_INCLUDE_DIR="${BASH_DIR}/../static/include" \
+    -DZLIB_LIBRARY="${BASH_DIR}/../static/lib/libz.a" \
+    -DCMAKE_CXX_FLAGS="-Wno-unqualified-std-cast-call" \
+    -DMAX_KMER_SIZE=128 \
     -S . -B build
+
+# Build the project
 cmake --build build
+
+# Get binary names based on OS type
+if [ "$OS_TYPE" == "linux" ]; then
+    BINS="Bifrost libbifrost.so"
+elif [ "$OS_TYPE" == "macos" ]; then
+    BINS="Bifrost libbifrost.dylib"
+fi
 
 # Define the name of the compressed file
 FN_TAR="bifrost.${OS_TYPE}.tar.gz"
 
-# Package the build results
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $(make -p | grep "^all: " | sed 's/^all: //')
+# Create compressed archive with maximum compression
+cd build/src
+tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
-# Move the compressed file to the tar directory
-mv ${FN_TAR} ../tar/
+# Move archive to the central tar directory
+mv ${FN_TAR} ${BASH_DIR}/../tar/
 
-# Restore the Git repository and clean the build environment
-git restore .
-make clean
+# Return to the original directory
+cd ${BASH_DIR}/..
 
-# Return to the parent directory and commit the compressed file to the Git repository
-cd ..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
