@@ -253,22 +253,29 @@ Built under a CentOS 7 VM.
 ```bash
 cd FASTK
 
+# Clean and prepare the build environment
 git restore .
 make clean
 
-make CC="zig cc -D_GNU_SOURCE"
+# Build with Zig compiler
+make CC="zig cc -D_GNU_SOURCE" || exit 1
 
+# Get binary names from Makefile
+BINS=$(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
+
+# Create compressed archive
 FN_TAR=FASTK.centos.tar.gz
-GZIP=-9 tar cvfz ${FN_TAR} \
-    $(cat Makefile | grep "^ALL = " | sed 's/^ALL =//')
+tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
+# Move archive to the central tar directory
 mv ${FN_TAR} ../tar/
 
+# Clean up build environment
 git restore .
 make clean
-rm LIBDEFLATE/a.out
-rm LIBDEFLATE/null.o
+rm -f LIBDEFLATE/a.out LIBDEFLATE/null.o
 
+# Commit the new archive
 cd ..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
@@ -308,19 +315,16 @@ directory. The process:
 
 1. Creates the target directory if it doesn't exist
 2. Fetches the list of available binaries from GitHub
-3. Downloads and extracts each binary package in parallel
+3. Downloads and extracts each binary package
 
 ```bash
-# Create target directory if it doesn't exist
-mkdir -p $HOME/bin
+# Install all packages
+bash install.sh
 
-curl -fsSL \
-    https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
-    jq -r '.tree[] | select( .path | startswith("tar/") ) | .path' |
-    parallel -j 1 "
-        echo >&2 '==> {}'
-        curl -fsSL https://raw.githubusercontent.com/wang-q/builds/master/{} |
-        tar xvz --directory=$HOME/bin/
-    "
+# Install specific package(s)
+bash install.sh intspan multiz
+
+# Install multiple packages
+bash install.sh DAZZ_DB DALIGNER FASTGA
 
 ```
