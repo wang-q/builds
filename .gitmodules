@@ -34,3 +34,6 @@
 [submodule "bifrost"]
 	path = bifrost
 	url = https://github.com/pmelsted/bifrost.git
+[submodule "spoa"]
+	path = spoa
+	url = https://github.com/rvaser/spoa.git
