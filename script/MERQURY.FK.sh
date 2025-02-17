@@ -34,7 +34,7 @@ cd ${TEMP_DIR}
 
 # Modify the Makefile to use zig cc and specify the target architecture
 sed -i 's/^\t\s*gcc/\t$(CC)/g' Makefile || exit 1
-sed -i "s|^CFLAGS =.*$|CFLAGS = -I${BASH_DIR}/../static/include -L${BASH_DIR}/../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing|g" Makefile || exit 1
+sed -i "s|^CFLAGS =.*$|CFLAGS = -I${BASH_DIR}/../static-${OS_TYPE}/include -L${BASH_DIR}/../static-${OS_TYPE}/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing|g" Makefile || exit 1
 sed -i "1i CC = zig cc -target ${TARGET_ARCH}" Makefile || exit 1
 
 # Build the project

@@ -33,8 +33,9 @@ cp -R . ${TEMP_DIR}/
 cd ${TEMP_DIR}
 
 # Build multiz with Zig cross-compiler and optimization flags
+# Build the project with the specified target architecture and flags
 make CC="zig cc -target ${TARGET_ARCH}" \
-    CFLAGS="-I${BASH_DIR}/../static/include -L${BASH_DIR}/../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing -fcommon" \
+    CFLAGS="-I${BASH_DIR}/../static-${OS_TYPE}/include -L${BASH_DIR}/../static-${OS_TYPE}/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing" \
     || exit 1
 
 # Get binary names from Makefile
