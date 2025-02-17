@@ -24,15 +24,17 @@ fi
 # Enter the FASTGA project directory
 cd FASTGA || exit 1
 
-# Restore the Git repository to its original state
-git restore . || exit 1
+# Create temp directory
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf ${TEMP_DIR}' EXIT
 
-# Clean the build environment
-make clean
+# Copy source to temp directory
+cp -R . ${TEMP_DIR}/
+cd ${TEMP_DIR}
 
 # Build the project with the specified target architecture and flags
 make CC="zig cc -target ${TARGET_ARCH}" \
-    CFLAGS="-I../static/include -L../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing" \
+    CFLAGS="-I${BASH_DIR}/../static/include -L${BASH_DIR}/../static/lib -O3 -Wall -Wextra -Wno-unused-result -fno-strict-aliasing" \
     || exit 1
 
 # Get binary names from Makefile
@@ -45,13 +47,9 @@ FN_TAR="FASTGA.${OS_TYPE}.tar.gz"
 tar -cf - ${BINS} | gzip -9 > ${FN_TAR}
 
 # Move archive to the central tar directory
-mv ${FN_TAR} ../tar/
-
-# Clean up build environment
-git restore .
-make clean
+mv ${FN_TAR} ${BASH_DIR}/../tar/
 
 # Commit the new archive
-cd ..
+cd ${BASH_DIR}/..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
