@@ -24,35 +24,37 @@ elif [ "$OS_TYPE" == "macos" ]; then
 fi
 
 # Enter the trf directory
-cd trf
+cd trf || exit 1
 
 # Extract the TRF source code
-tar xvfz trf.src.tar.gz
+tar xvfz trf.src.tar.gz || exit 1
 
 # Build TRF with the specified target architecture
-cd TRF-*
-CC="zig cc -target ${TARGET_ARCH}" ./configure
-make
+cd TRF-* || exit 1
+CC="zig cc -target ${TARGET_ARCH}" ./configure || exit 1
+make || exit 1
 
 # Move the compiled binary to the parent directory
 mv src/trf ../
+
+# Move back to trf directory
 cd ..
 
-# Define the name of the compressed file
+# Define the name of the compressed file based on OS type
 FN_TAR="trf.${OS_TYPE}.tar.gz"
 
-# Package the build results
-GZIP=-9 tar cvfz ${FN_TAR} \
+# Create compressed archive
+tar --gzip --compress-level=9 -cvf ${FN_TAR} \
     trf
 
-# Move the compressed file to the tar directory
+# Move archive to the central tar directory
 mv ${FN_TAR} ../tar/
 
-# Clean up the TRF source directory
+# Clean up build artifacts
 rm trf
 rm -fr TRF-*
 
-# Return to the parent directory and commit the compressed file to the Git repository
+# Return to project root and commit the new archive
 cd ..
 git add "tar/${FN_TAR}"
 git commit -a -m "${FN_TAR}"
