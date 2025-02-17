@@ -137,6 +137,15 @@ cd ..
 git add bifrost
 git commit -m "Update bifrost to v1.3.5"
 
+# spoa
+git submodule add https://github.com/rvaser/spoa.git spoa
+
+cd spoa
+git checkout 4.1.4
+cd ..
+git add spoa
+git commit -m "Update spoa to 4.1.4"
+
 # intspan
 git submodule add https://github.com/wang-q/intspan.git intspan
 
@@ -297,6 +306,7 @@ bash script/trf.sh
 
 ```bash
 bash script/bifrost.sh
+bash script/spoa.sh
 
 ```
 
