@@ -468,7 +468,7 @@ bash script/trimal.sh
 # System tools
 bash script/rust.sh fd
 bash script/rust.sh ripgrep
-bash script/rust.sh bat
+# bash script/rust.sh bat
 bash script/rust.sh hyperfine
 bash script/rust.sh tealdeer
 bash script/rust.sh tokei
@@ -545,15 +545,15 @@ bash install.sh intspan multiz
     datamash    diamond
     faops       fastqc      fd
     gdbm
-    hmmer       hmmer2      hnsm        htslib
+    hmmer       hmmer2      hnsm        htslib      hyperfine
     intspan
     lastz
-    mash        megahit     mmseqs      multiz      mummer      muscle
+    mash        megahit     minimap2    miniprot    mmseqs      multiz      mummer      muscle
     nwr
     pgr         phast       picard      pigz        pixman
     raxml-ng    reseek      ripgrep
     samtools    sickle      spoa
-    trimal      tsv-utils
+    tealdeer    tokei       trimal      tsv-utils
     usearch
     zlib
 
