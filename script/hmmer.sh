@@ -3,6 +3,9 @@
 # Source common build environment: extract source, setup dirs and functions
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
+# Extract source code
+extract_source
+
 # Set configure options based on OS type
 if [ "$OS_TYPE" == "linux" ]; then
     SIMD_OPT="--enable-sse"
