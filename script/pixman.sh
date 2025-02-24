@@ -3,6 +3,9 @@
 # Source common build environment: extract source, setup dirs and functions
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
+# Extract source code
+extract_source
+
 CC="zig cc -target ${TARGET_ARCH}" \
 CXX="zig c++ -target ${TARGET_ARCH}" \
 meson setup build \

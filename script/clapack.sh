@@ -1,44 +1,10 @@
 #!/bin/bash
 
-# Get the directory of the script and project name
-BASH_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-PROJ=$(basename "${BASH_SOURCE[0]}" .sh)
+# Source common build environment: extract source, setup dirs and functions
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
-# Move to the parent directory of the script
-cd "${BASH_DIR}"/..
-
-# Set the default OS type to 'linux'
-OS_TYPE=${1:-linux}
-
-# Validate the OS type
-if [[ "$OS_TYPE" != "linux" && "$OS_TYPE" != "macos" ]]; then
-    echo "Unsupported os_type: $OS_TYPE"
-    echo "Supported os_type: linux, macos"
-    exit 1
-fi
-
-# Set the target architecture based on the OS type
-if [ "$OS_TYPE" == "linux" ]; then
-    TARGET_ARCH="x86_64-linux-gnu.2.17"
-elif [ "$OS_TYPE" == "macos" ]; then
-    TARGET_ARCH="aarch64-macos-none"
-fi
-
-# Create temp directory
-TEMP_DIR=$(mktemp -d)
-trap 'rm -rf ${TEMP_DIR}' EXIT
-
-# Copy source to temp directory
-cp src/${PROJ}.tar.gz ${TEMP_DIR}/
-
-# Extract the source code
-cd ${TEMP_DIR}
-echo "Extracting ${PROJ}.tar.gz..."
-tar xvfz ${PROJ}.tar.gz || { echo "Error: Failed to extract source"; exit 1; }
-
-cd ${PROJ} 2>/dev/null ||
-    cd ${PROJ}-* 2>/dev/null ||
-    { echo "Error: Cannot find source directory"; exit 1; }
+# Extract source code
+extract_source
 
 # Build with the specified target architecture
 ASM="zig cc" \
