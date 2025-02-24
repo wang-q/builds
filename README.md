@@ -142,6 +142,17 @@ curl -o src/gdbm.tar.gz -L https://ftp.gnu.org/gnu/gdbm/gdbm-1.24.tar.gz
 
 curl -o src/expat.tar.gz -L https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.gz
 
+# berkeley-db
+curl -L https://download.oracle.com/berkeley-db/db-5.3.28.tar.gz |
+    tar xvfz - &&
+    mv db-5.3.28 berkeley-db &&
+    rm -fr berkeley-db/docs/ &&
+    rm -fr berkeley-db/examples/ &&
+    rm -fr berkeley-db/lang/ &&
+    rm -fr berkeley-db/tests/ &&
+    tar -czf src/berkeley-db.tar.gz berkeley-db/ &&
+    rm -rf berkeley-db
+
 curl -o src/libpng.tar.gz -L https://sourceforge.net/projects/libpng/files/libpng16/1.6.47/libpng-1.6.47.tar.gz/download
 
 curl -o src/pixman.tar.gz -L https://cairographics.org/releases/pixman-0.44.2.tar.gz
