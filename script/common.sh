@@ -38,16 +38,18 @@ fi
 # Create temp directory
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf ${TEMP_DIR}' EXIT
+cd ${TEMP_DIR}  || { echo "Error: Failed to enter temp directory"; exit 1; }
 
-# Extract the source code
-cd ${TEMP_DIR}
-echo "Extracting ${PROJ}.tar.gz..."
-tar xvfz "${BASH_DIR}"/../src/${PROJ}.tar.gz ||
-    { echo "Error: Failed to extract source"; exit 1; }
+# Extract source code function
+extract_source() {
+    echo "Extracting ${PROJ}.tar.gz..."
+    tar xvfz "${BASH_DIR}"/../src/${PROJ}.tar.gz ||
+        { echo "Error: Failed to extract source"; exit 1; }
 
-cd ${PROJ} 2>/dev/null ||
-    cd ${PROJ}-* 2>/dev/null ||
-    { echo "Error: Cannot find source directory"; exit 1; }
+    cd ${PROJ} 2>/dev/null ||
+        cd ${PROJ}-* 2>/dev/null ||
+        { echo "Error: Cannot find source directory"; exit 1; }
+}
 
 # Utility functions
 
@@ -116,4 +118,4 @@ fix_shebang() {
     fi
 }
 
-export -f build_tar collect_make_bins collect_bins fix_shebang
+export -f extract_source build_tar collect_make_bins collect_bins fix_shebang

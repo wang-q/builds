@@ -20,5 +20,4 @@ make \
     || exit 1
 
 # Collect binaries and create tarball
-collect_bins minimap2 sdust
 build_tar

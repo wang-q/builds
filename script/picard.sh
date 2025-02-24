@@ -1,20 +1,14 @@
 #!/bin/bash
 
-# Get the directory of the script
-BASH_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
-# Move to the parent directory of the script
-cd "${BASH_DIR}"/..
-
-# Create temp directory
-TEMP_DIR=$(mktemp -d)
-trap 'rm -rf ${TEMP_DIR}' EXIT
+# Source common build environment
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 # Set download URL based on OS type
 DL_URL="https://github.com/broadinstitute/picard/releases/download/3.3.0/picard.jar"
 
-# Download and extract
-curl -o ${TEMP_DIR}/picard.jar -L ${DL_URL} || { echo "Error: Failed to download"; exit 1; }
+# Download jar
+curl -L ${DL_URL} -o ${PROJ}.jar ||
+    { echo "Error: Failed to download ${PROJ}"; exit 1; }
 cd ${TEMP_DIR} || { echo "Error: Failed to enter temp directory"; exit 1; }
 
 # Collect binaries and scripts
@@ -30,15 +24,5 @@ EOF
 
 chmod +x collect/picard
 
-# Define the name of the compressed file based on OS type
-FN_TAR="picard.linux.tar.gz"
-
-# Create compressed archive
-cd  ${TEMP_DIR}/collect
-tar -cf - * | gzip -9 > ${TEMP_DIR}/${FN_TAR}
-
-# Move archive to the central tar directory
-mv ${TEMP_DIR}/${FN_TAR} ${BASH_DIR}/../tar/
-
-# Copy for macOS (instead of symlink for Windows compatibility)
-cp ${BASH_DIR}/../tar/${FN_TAR} ${BASH_DIR}/../tar/picard.macos.tar.gz
+# Use build_tar function from common.sh
+build_tar

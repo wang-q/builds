@@ -1,26 +1,19 @@
 #!/bin/bash
 
-# Get the directory of the script
-BASH_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+# Source common build environment
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
-# Move to the parent directory of the script
-cd "${BASH_DIR}"/..
-
-# Create temp directory
-TEMP_DIR=$(mktemp -d)
-trap 'rm -rf ${TEMP_DIR}' EXIT
-
-# Set download URL based on OS type
+# Set download URL
 DL_URL="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.12.1.zip"
 
 # Download and extract
-curl -o ${TEMP_DIR}/fastqc.zip -L ${DL_URL} || { echo "Error: Failed to download"; exit 1; }
-cd ${TEMP_DIR} || { echo "Error: Failed to enter temp directory"; exit 1; }
-unzip fastqc.zip
+curl -L ${DL_URL} -o ${PROJ}.zip ||
+    { echo "Error: Failed to download ${PROJ}"; exit 1; }
+unzip ${PROJ}.zip
 
-# Collect binaries and scripts
-mkdir -p collect/libexec/fastqc
-cp -R FastQC/* collect/libexec/fastqc
+# Collect files
+mkdir -p collect/share
+cp -r FastQC/* collect/share/
 
 # Create wrapper script
 cat > collect/fastqc << 'EOF'
@@ -32,15 +25,5 @@ EOF
 chmod +x collect/libexec/fastqc/fastqc
 chmod +x collect/fastqc
 
-# Define the name of the compressed file based on OS type
-FN_TAR="fastqc.linux.tar.gz"
-
-# Create compressed archive
-cd  ${TEMP_DIR}/collect
-tar -cf - * | gzip -9 > ${TEMP_DIR}/${FN_TAR}
-
-# Move archive to the central tar directory
-mv ${TEMP_DIR}/${FN_TAR} ${BASH_DIR}/../tar/
-
-# Copy for macOS (instead of symlink for Windows compatibility)
-cp ${BASH_DIR}/../tar/${FN_TAR} ${BASH_DIR}/../tar/fastqc.macos.tar.gz
+# Use build_tar function from common.sh
+build_tar
