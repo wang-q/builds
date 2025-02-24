@@ -234,6 +234,14 @@ curl -o src/fd.tar.gz -L https://github.com/sharkdp/fd/archive/refs/tags/v10.2.0
 
 curl -o src/ripgrep.tar.gz -L https://github.com/BurntSushi/ripgrep/archive/refs/tags/14.1.1.tar.gz
 
+curl -o src/bat.tar.gz -L https://github.com/sharkdp/bat/archive/refs/tags/v0.25.0.tar.gz
+
+curl -o src/hyperfine.tar.gz -L https://github.com/sharkdp/hyperfine/archive/refs/tags/v1.19.0.tar.gz
+
+curl -o src/tealdeer.tar.gz -L https://github.com/tealdeer-rs/tealdeer/archive/refs/tags/v1.7.1.tar.gz
+
+curl -o src/tokei.tar.gz -L https://github.com/XAMPPRocky/tokei/archive/refs/tags/v12.1.2.tar.gz
+
 curl -o src/nwr.tar.gz -L https://github.com/wang-q/nwr/archive/refs/tags/v0.7.7.tar.gz
 
 curl -o src/intspan.tar.gz -L https://github.com/wang-q/intspan/archive/refs/tags/v0.8.4.tar.gz
@@ -460,6 +468,10 @@ bash script/trimal.sh
 # System tools
 bash script/rust.sh fd
 bash script/rust.sh ripgrep
+bash script/rust.sh bat
+bash script/rust.sh hyperfine
+bash script/rust.sh tealdeer
+bash script/rust.sh tokei
 
 # Bioinformatics tools
 bash script/rust.sh intspan
