@@ -28,22 +28,24 @@
 This project is designed like a package manager (similar to Homebrew), with the following features:
 
 1. Standardized build process
-    * Download source code
-    * Extract to temporary directory
-    * Configure and compile
-    * Package and distribute
+    * Download source code from official releases
+    * Extract and prepare in temporary directory
+    * Cross-compile with Zig
+    * Package and distribute as tarballs
 
 2. Cross-platform support
-    * Linux (glibc 2.17) and macOS (aarch64)
-    * Zig as cross-compiler
+    * Linux: glibc 2.17 (CentOS 7) compatibility
+    * macOS: aarch64 (Apple Silicon) native
+    * Zig as cross-compiler for consistent builds
 
 3. Unified directory structure
     * `src/` - Source packages
-    * `script/` - Build scripts
-    * `tar/` - Build artifacts
+    * `script/` - Build scripts and common functions
+    * `tar/` - Build artifacts for distribution
 
 4. Modular design
-    * `common.sh` - Common functions and variables
+    * `common.sh` - Shared build environment and functions
+    * `install.sh` - Package installation manager
     * Individual build script for each package
 
 The main focus is on bioinformatics tools, with special attention to glibc 2.17 (CentOS 7)
@@ -187,6 +189,7 @@ curl -o src/phast.tar.gz -L https://github.com/CshlSiepelLab/phast/archive/refs/
 
 curl -o src/bedtools.tar.gz -L https://github.com/arq5x/bedtools2/releases/download/v2.31.1/bedtools-2.31.1.tar.gz
 
+# remove unnecessary files to reduce source size
 curl -L https://github.com/inab/trimal/archive/refs/tags/v1.5.0.tar.gz |
     tar xvfz - &&
     rm -fr trimal-1.5.0/dataset/ &&
@@ -194,6 +197,7 @@ curl -L https://github.com/inab/trimal/archive/refs/tags/v1.5.0.tar.gz |
     tar -czf src/trimal.tar.gz trimal-1.5.0/ &&
     rm -rf trimal-1.5.0
 
+# use specific commit to ensure reproducibility
 curl -o src/DAZZ_DB.tar.gz -L https://github.com/thegenemyers/DAZZ_DB/archive/be65e5991ec0aa4ebbfa926ea00e3680de7b5760.tar.gz
 
 curl -o src/DALIGNER.tar.gz -L https://github.com/thegenemyers/DALIGNER/archive/a8e2f42f752f21d21c92fbc39c75b16b52c6cabe.tar.gz
@@ -213,6 +217,7 @@ curl -o src/TRF.tar.gz -L https://github.com/Benson-Genomics-Lab/TRF/archive/ref
 
 curl -o src/hmmer.tar.gz -L http://eddylab.org/software/hmmer/hmmer-3.4.tar.gz
 
+# hmmer2: rename package to avoid conflict with hmmer3
 curl -L http://eddylab.org/software/hmmer/2.4i/hmmer-2.4i.tar.gz |
     tar xvfz - &&
     mv hmmer-2.4i hmmer2 &&
@@ -223,6 +228,7 @@ curl -o src/mummer.tar.gz -L https://github.com/mummer4/mummer/releases/download
 
 curl -o src/clustal-omega.tar.gz -L http://www.clustal.org/omega/clustal-omega-1.2.4.tar.gz
 
+# The .tar.gz source code from GitHub equires autoconf/automake to generate ./configure
 curl -L https://github.com/samtools/htslib/releases/download/1.21/htslib-1.21.tar.bz2 |
     tar xvfj - &&
     tar -czf src/htslib.tar.gz htslib-1.21/ &&
