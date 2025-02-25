@@ -1,17 +1,29 @@
 # Build binaries for glibc 2.17
 
+A package manager for bioinformatics tools, focusing on glibc 2.17 (CentOS 7) compatibility and
+Apple Silicon support. Pre-built binaries are cross-compiled with Zig for consistent builds across
+platforms.
+
 <!-- TOC -->
 * [Build binaries for glibc 2.17](#build-binaries-for-glibc-217)
-  * [Design](#design)
-  * [Requirements](#requirements)
+* [User Guide](#user-guide)
+  * [System Requirements](#system-requirements)
+  * [Installation](#installation)
+  * [Usage](#usage)
+    * [Available Commands](#available-commands)
+    * [Package List](#package-list)
+* [Developer Guide](#developer-guide)
+  * [Project Design](#project-design)
+  * [Build requirements](#build-requirements)
     * [Zig](#zig)
     * [git lfs](#git-lfs)
-    * [Other build tools](#other-build-tools)
+    * [Other tools](#other-tools)
     * [Rust](#rust)
-  * [Source tarballs](#source-tarballs)
-  * [Source codes from git commit](#source-codes-from-git-commit)
-  * [Builds](#builds)
-    * [libs](#libs)
+  * [Source Management](#source-management)
+    * [Source tarballs](#source-tarballs)
+    * [Source codes from Git Repositories](#source-codes-from-git-repositories)
+  * [Build Process](#build-process)
+    * [Basic Libraries](#basic-libraries)
     * [`Makefile`](#makefile)
     * [`CLAPACK`](#clapack)
     * [`./configure`](#configure)
@@ -20,11 +32,50 @@
     * [Projects requiring specific build environments](#projects-requiring-specific-build-environments)
     * [Rust projects](#rust-projects)
   * [Binary tarballs](#binary-tarballs)
-  * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
+  * [License](#license)
 <!-- TOC -->
 
+# User Guide
 
-## Download and install binaries
+## System Requirements
+
+* Linux (glibc 2.17+) or macOS (Apple Silicon)
+* Bash shell
+* curl
+* A directory in your `$PATH` (default: ~/bin)
+
+## Installation
+
+First, create the target directory and download the installation script:
+
+```bash
+# Create bin directory if it doesn't exist
+mkdir -p ~/bin
+
+# Download the installation script
+curl -LO https://raw.githubusercontent.com/wang-q/builds/master/install.sh
+chmod +x install.sh
+
+# Download and install jq (required for the installation script)
+curl -LO https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+chmod +x jq-linux-amd64
+mv jq-linux-amd64 ~/bin/jq
+
+# Verify the installation
+bash install.sh -h
+
+```
+
+Make sure `~/bin` is in your `$PATH`. Add the following line to your `~/.bashrc` if needed:
+
+```bash
+export PATH="$HOME/bin:$PATH"
+
+```
+
+## Usage
+
+### Available Commands
 
 This section provides instructions for downloading and installing pre-built binaries. The process:
 
@@ -62,6 +113,8 @@ bash install.sh --help          # Alternative way to show help
 
 ```
 
+### Package List
+
 ```text
 ==> Available packages for Linux:
   ASTER
@@ -92,7 +145,9 @@ bash install.sh --help          # Alternative way to show help
 
 ```
 
-## Design
+# Developer Guide
+
+## Project Design
 
 This project is designed like a package manager (similar to Homebrew), with the following features:
 
@@ -120,12 +175,11 @@ This project is designed like a package manager (similar to Homebrew), with the 
 The main focus is on bioinformatics tools, with special attention to glibc 2.17 (CentOS 7)
 compatibility.
 
-## Requirements
+## Build requirements
 
 - Linux or Windows WSL
 - Zig 0.13.0
 - Rust (latest stable version)
-- jq 1.7.1+
 - Git (latest version)
 
 ### Zig
@@ -147,11 +201,6 @@ tar xvfJ zig.tar.xz
 mv zig-macos-aarch64* zig
 ln -s $HOME/share/zig/zig $HOME/bin/zig
 
-# Download and install jq
-curl -LO https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
-chmod +x jq-linux-amd64
-mv jq-linux-amd64 ~/bin/jq
-
 # Verify Zig target
 zig targets | jq .libc
 
@@ -168,7 +217,7 @@ git lfs track "tar/*.tar.gz"
 
 ```
 
-### Other build tools
+### Other tools
 
 ```bash
 # cmake
@@ -204,7 +253,9 @@ rustup target add aarch64-apple-darwin
 
 ```
 
-## Source tarballs
+## Source Management
+
+### Source tarballs
 
 ```bash
 # Basic libraries
@@ -400,9 +451,10 @@ curl -o src/anchr.tar.gz -L https://github.com/wang-q/anchr/archive/fadc09fe502e
 
 ```
 
-## Source codes from git commit
+### Source codes from Git Repositories
 
-This section clones recursively and sets up all required git repo at specific commits for reproducibility.
+This section clones recursively and sets up all required git repo at specific commits for
+reproducibility.
 
 ```bash
 # bcalm
@@ -419,7 +471,7 @@ rm -rf ${REPO}
 
 ```
 
-## Builds
+## Build Process
 
 This section contains build instructions for each component. Note that:
 
@@ -427,7 +479,7 @@ This section contains build instructions for each component. Note that:
 2. Build artifacts are packaged into .tar.gz files and stored in the `tar/` directory
 3. Each build is performed in a temporary directory to avoid polluting the source directory
 
-### libs
+### Basic Libraries
 
 ```bash
 bash script/zlib.sh
@@ -593,3 +645,7 @@ bash script/fastqc.sh
 bash script/picard.sh
 
 ```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
