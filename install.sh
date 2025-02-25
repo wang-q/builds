@@ -10,7 +10,7 @@ else
     OS_TYPE="linux"
 fi
 
-# Define perl format script
+# Define perl format script for package listing
 PERL_FMT='
     BEGIN{
         $p="";
@@ -32,66 +32,249 @@ PERL_FMT='
     $count++;
 '
 
-# Get package names from command line arguments
-REMOTE_PKGS=()
-if [ $# -eq 0 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
-    echo "Usage: $0 package1 [package2 ...]"
+# Function definitions
+show_help() {
+    echo "Usage: $0 [options] [package1 package2 ...]"
     echo
     echo "Options:"
-    echo "  -h, --help    Show this help message"
-    echo "  -l           List packages for Linux"
-    echo "  -m           List packages for macOS"
-    echo "  -n           List packages not built yet"
+    echo "  -h, --help  Show this help message"
+    echo "  -a          List all available packages"
+    echo "  -b          List unbuilt packages"
+    echo "  -l          List installed packages"
+    echo "  -f          List foreign files in ~/bin"
+    echo "  -r, -u      Remove installed packages"
+    echo "  --linux     List packages for Linux"
+    echo "  --macos     List packages for macOS"
     echo
     echo "Examples:"
-    echo "  bash $0 pigz    # Install specified packages"
-    exit 1
-elif [ "$1" == "-n" ]; then
-    echo "==> Packages in script/ but not built for Linux:"
+    echo "  bash $0 -l              # List installed packages"
+    echo "  bash $0 -f              # List foreign files"
+    echo "  bash $0 -a              # List all available packages"
+    echo "  bash $0 pigz minimap2   # Install specified packages"
+    echo "  bash $0 -r pigz         # Remove specified packages"
+}
+
+list_packages() {
+    local pattern="$1"
+    local message="$2"
+    echo "==> ${message}"
+    curl -fsSL https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
+        jq -r '.tree[] | select(.path | startswith("tar/")) | .path' |
+        grep "${pattern}" |
+        sed 's/^tar\///' |
+        sed "s/${pattern}//" |
+        sort |
+        perl -n -e "${PERL_FMT}"
+    echo
+}
+
+list_available() {
+    list_packages "\.${OS_TYPE}\.tar\.gz$" "Available packages for ${OS_TYPE}"
+}
+
+list_installed() {
+    if [ $# -eq 0 ]; then
+        echo "==> Installed packages:"
+        if [ -d "$HOME/bin/.builds" ]; then
+            find "$HOME/bin/.builds" -name "*.files" -printf "%f\n" |
+                sed 's/\.files$//' |
+                sort |
+                perl -n -e "${PERL_FMT}"
+        fi
+        echo
+    else
+        for pkg in "$@"; do
+            if [ -f "$HOME/bin/.builds/${pkg}.files" ]; then
+                echo "==> Files in package ${pkg}:"
+                cat "$HOME/bin/.builds/${pkg}.files"
+                echo
+            else
+                echo "Warning: Package ${pkg} is not installed"
+            fi
+        done
+    fi
+}
+
+list_unbuilt() {
+    echo "==> Packages in script/ but not built for ${OS_TYPE}:"
     comm -23 \
         <(find script/ -name "*.sh" ! -name "common.sh" ! -name "rust.sh" -printf "%f\n" | sed 's/\.sh$//' | sort) \
         <(curl -fsSL https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
             jq -r '.tree[] | select(.path | startswith("tar/")) | .path' |
-            grep "\.linux\.tar\.gz$" |
+            grep "\.${OS_TYPE}\.tar\.gz$" |
             sed 's/^tar\///' |
-            sed 's/\.linux\.tar\.gz$//' |
+            sed "s/\.${OS_TYPE}\.tar\.gz$//" |
             sort) |
         perl -n -e "${PERL_FMT}"
     echo
-    exit 0
-elif [ "$1" == "-l" ]; then
-    echo "==> Available packages for Linux:"
-    curl -fsSL https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
-        jq -r '.tree[] | select(.path | startswith("tar/")) | .path' |
-        grep "\.linux\.tar\.gz$" |
-        sed 's/^tar\///' |
-        sed 's/\.linux\.tar\.gz$//' |
-        sort |
-        perl -n -e "${PERL_FMT}"
+}
+
+list_linux() {
+    list_packages "\.linux\.tar\.gz$" "Available packages for Linux"
+}
+
+list_macos() {
+    list_packages "\.macos\.tar\.gz$" "Available packages for macOS"
+}
+
+list_foreign() {
+    echo "==> Foreign files in $HOME/bin:"
+    # Create temp file to store known files
+    local temp_known=$(mktemp)
+    trap 'rm -f ${temp_known}' EXIT
+
+    # Collect files from installed packages
+    if [ -d "$HOME/bin/.builds" ]; then
+        cat "$HOME/bin/.builds"/*.files > "${temp_known}" 2>/dev/null
+    fi
+
+    # Find and display files not in known list, excluding .builds directory
+    find "$HOME/bin" -type f -not -path "$HOME/bin/.builds/*" -printf "%P\n" | sort | \
+    while read -r file; do
+        if ! grep -Fxq "$file" "${temp_known}"; then
+            echo "  $file"
+        fi
+    done
     echo
-    exit 0
-elif [ "$1" == "-m" ]; then
-    echo "==> Available packages for macOS:"
-    curl -fsSL https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
-        jq -r '.tree[] | select(.path | startswith("tar/")) | .path' |
-        grep "\.macos\.tar\.gz$" |
-        sed 's/^tar\///' |
-        sed 's/\.macos\.tar\.gz$//' |
-        sort |
-        perl -n -e "${PERL_FMT}"
-    echo
-    exit 0
+}
+
+remove_packages() {
+    for pkg in "$@"; do
+        if [ -f "$HOME/bin/.builds/${pkg}.files" ]; then
+            echo "==> Removing ${pkg}"
+            xargs rm -f < "$HOME/bin/.builds/${pkg}.files"
+            rm -f "$HOME/bin/.builds/${pkg}.files"
+            echo "    Done"
+        else
+            echo "Warning: Package ${pkg} is not installed"
+        fi
+    done
+}
+
+install_package() {
+    local pkg_path="$1"
+    local pkg_name=$(basename "${pkg_path}" ".${OS_TYPE}.tar.gz")
+    local install_dir="$HOME/bin"
+    local record_dir="$HOME/bin/.builds"
+
+    echo "==> Installing ${pkg_path}"
+
+    mkdir -p "${record_dir}"
+
+    tar tzf "${pkg_path}" > "${record_dir}/${pkg_name}.files" || {
+        echo "    Failed to list files in ${pkg_path}"
+        return 1
+    }
+
+    tar xzf "${pkg_path}" --directory="${install_dir}" || {
+        echo "    Failed to extract ${pkg_path}"
+        rm -f "${record_dir}/${pkg_name}.files"
+        return 1
+    }
+
+    echo "    Done"
+    return 0
+}
+
+install_remote_package() {
+    local pkg_path="$1"
+    local temp_file="$2"
+
+    echo "==> Installing remote ${pkg_path}"
+
+    if ! curl -fsSL "https://raw.githubusercontent.com/wang-q/builds/master/${pkg_path}" -o "${temp_file}"; then
+        echo "    Failed to download ${pkg_path}"
+        return 1
+    fi
+
+    if ! install_package "${temp_file}"; then
+        return 1
+    fi
+
+    return 0
+}
+
+# Process command line options
+while getopts "habflr:u:-:" opt; do
+    case $opt in
+        h)
+            show_help
+            exit 0
+            ;;
+        a)
+            list_available
+            exit 0
+            ;;
+        b)
+            list_unbuilt
+            exit 0
+            ;;
+        l)
+            shift $((OPTIND-1))
+            if [ $# -eq 0 ]; then
+                list_installed
+            else
+                list_installed "$1"
+            fi
+            exit 0
+            ;;
+        f)
+            list_foreign
+            exit 0
+            ;;
+        r|u)
+            if [ $# -lt 2 ]; then
+                echo "Error: Please specify package(s) to remove"
+                exit 1
+            fi
+            shift
+            remove_packages "$@"
+            exit 0
+            ;;
+        -)
+            case "${OPTARG}" in
+                help)
+                    show_help
+                    exit 0
+                    ;;
+                linux)
+                    list_linux
+                    exit 0
+                    ;;
+                macos)
+                    list_macos
+                    exit 0
+                    ;;
+                *)
+                    echo "Invalid option: --${OPTARG}"
+                    exit 1
+                    ;;
+            esac
+            ;;
+        ?)
+            echo "Invalid option: -$OPTARG"
+            exit 1
+            ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+# Show help if no arguments provided
+if [ $# -eq 0 ]; then
+    show_help
+    exit 1
 fi
 
-# Convert package names to tar path patterns
+# Install packages
+REMOTE_PKGS=()
+FOUND_PKGS=()
+
+# Process local packages first
 for pkg in "$@"; do
     pkg_path="tar/${pkg}.${OS_TYPE}.tar.gz"
-    # Check if local package exists
     if [ -f "${pkg_path}" ]; then
-        echo "==> Installing local ${pkg_path}"
-        tar xzf "${pkg_path}" --directory=$HOME/bin/ ||
-            { echo "    Failed to extract ${pkg_path}"; exit 1; }
-        echo "    Done"
+        install_package "${pkg_path}" || exit 1
     else
         REMOTE_PKGS+=("${pkg_path}")
     fi
@@ -104,37 +287,17 @@ done
 TEMP_FILE=$(mktemp)
 trap 'rm -f ${TEMP_FILE}' EXIT
 
-# Download and install remote binary packages
-FOUND_PKGS=()
+# Process remote packages
 curl -fsSL https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
-    jq -r '.tree[] | select( .path | startswith("tar/") ) | .path' |
+    jq -r '.tree[] | select(.path | startswith("tar/")) | .path' |
     while read -r path; do
-        # Check if package is in remote list
-        MATCH=0
         for pattern in "${REMOTE_PKGS[@]}"; do
             if [[ $path == $pattern ]]; then
-                MATCH=1
                 FOUND_PKGS+=("$pattern")
+                install_remote_package "${path}" "${TEMP_FILE}" || continue
                 break
             fi
         done
-        [ $MATCH -eq 0 ] && continue
-
-        echo "==> Installing remote ${path}"
-
-        # Download to temp file
-        if ! curl -fsSL "https://raw.githubusercontent.com/wang-q/builds/master/${path}" -o "${TEMP_FILE}"; then
-            echo "    Failed to download ${path}"
-            continue
-        fi
-
-        # Extract from temp file
-        if ! tar xzf "${TEMP_FILE}" --directory=$HOME/bin/; then
-            echo "    Failed to extract ${path}"
-            continue
-        fi
-
-        echo "    Done"
     done
 
 # Check for packages not found
