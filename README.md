@@ -198,6 +198,8 @@ curl -o src/sickle.tar.gz -L https://github.com/najoshi/sickle/archive/refs/tags
 
 curl -o src/faops.tar.gz -L https://github.com/wang-q/faops/archive/refs/tags/0.8.22.tar.gz
 
+curl -o src/phylip.tar.gz -L https://phylipweb.github.io/phylip/download/phylip-3.697.tar.gz
+
 curl -o src/mafft.tar.gz -L https://gitlab.com/sysimm/mafft/-/archive/v7.526/mafft-v7.526.tar.gz
 
 curl -o src/phast.tar.gz -L https://github.com/CshlSiepelLab/phast/archive/refs/tags/v1.7.tar.gz
