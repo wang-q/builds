@@ -232,8 +232,6 @@ curl -L https://github.com/samtools/bcftools/releases/download/1.21/bcftools-1.2
 # gatk
 # freebayes
 # mosdepth
-# minimap2
-# miniprot
 
 # cmake
 curl -o src/bifrost.tar.gz -L https://github.com/pmelsted/bifrost/archive/refs/tags/v1.3.5.tar.gz
@@ -241,6 +239,12 @@ curl -o src/bifrost.tar.gz -L https://github.com/pmelsted/bifrost/archive/refs/t
 curl -o src/spoa.tar.gz -L https://github.com/rvaser/spoa/archive/refs/tags/4.1.4.tar.gz
 
 curl -o src/diamond.tar.gz -L https://github.com/bbuchfink/diamond/archive/refs/tags/v2.1.11.tar.gz
+
+# standalone
+mkdir -p FastTree &&
+    curl -o FastTree/FastTree.c -L https://raw.githubusercontent.com/morgannprice/fasttree/refs/heads/main/old/FastTree-2.1.11.c &&
+    tar -czf src/FastTree.tar.gz FastTree/ &&
+    rm -fr FastTree
 
 # Rust projects
 curl -o src/fd.tar.gz -L https://github.com/sharkdp/fd/archive/refs/tags/v10.2.0.tar.gz
@@ -459,6 +463,13 @@ bash script/clustal-omega.sh
 bash script/bifrost.sh
 bash script/spoa.sh
 bash script/diamond.sh
+
+```
+
+### standalone
+
+```bash
+# bash script/FastTree.sh
 
 ```
 
