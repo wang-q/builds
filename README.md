@@ -5,15 +5,18 @@
   * [Design](#design)
   * [Requirements](#requirements)
     * [Zig](#zig)
+    * [git lfs](#git-lfs)
     * [Other build tools](#other-build-tools)
     * [Rust](#rust)
-  * [Source codes from git commit](#source-codes-from-git-commit)
   * [Source tarballs](#source-tarballs)
+  * [Source codes from git commit](#source-codes-from-git-commit)
   * [Builds](#builds)
+    * [libs](#libs)
     * [`Makefile`](#makefile)
     * [`CLAPACK`](#clapack)
     * [`./configure`](#configure)
     * [`cmake`](#cmake)
+    * [manually](#manually)
     * [Projects requiring specific build environments](#projects-requiring-specific-build-environments)
     * [Rust projects](#rust-projects)
   * [Binary tarballs](#binary-tarballs)
@@ -238,7 +241,7 @@ curl -o src/spoa.tar.gz -L https://github.com/rvaser/spoa/archive/refs/tags/4.1.
 
 curl -o src/diamond.tar.gz -L https://github.com/bbuchfink/diamond/archive/refs/tags/v2.1.11.tar.gz
 
-# standalone
+# manually
 mkdir -p FastTree &&
     curl -o FastTree/FastTree.c -L https://raw.githubusercontent.com/morgannprice/fasttree/refs/heads/main/old/FastTree-2.1.11.c &&
     tar -czf src/FastTree.tar.gz FastTree/ &&
@@ -464,7 +467,7 @@ bash script/diamond.sh
 
 ```
 
-### standalone
+### manually
 
 ```bash
 # bash script/FastTree.sh
@@ -564,7 +567,6 @@ bash install.sh intspan multiz
 ```
 
 ```text
-==> Available packages for Linux:
 ==> Available packages for Linux:
     DALIGNER    DAZZ_DB
     FASTGA      FASTK
