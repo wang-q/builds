@@ -233,6 +233,8 @@ curl -o src/FASTGA.tar.gz -L https://github.com/thegenemyers/FASTGA/archive/e97c
 
 curl -o src/multiz.tar.gz -L https://github.com/wang-q/multiz/archive/633c0f7814c887e9e7468ad42076d62496651cb8.tar.gz
 
+curl -o src/paml.tar.gz -L https://github.com/abacus-gene/paml/archive/01508dd10b6e7c746a0768ee3cddadb5c28d5ae0.tar.gz
+
 curl -L https://github.com/chaoszhang/ASTER/archive/e8da7edf8adf4205cf5551630dc77bb81497092b.tar.gz |
     tar xvfz - &&
     mv ASTER-* ASTER &&
@@ -533,29 +535,30 @@ bash install.sh intspan multiz
 
 ```text
 ==> Available packages for Linux:
-    ASTER
-    DALIGNER    DAZZ_DB
-    FASTGA      FASTK
-    MERQURY.FK
-    TRF
-    anchr       argtable
-    bcalm       bcftools    bifrost     bwa
-    clustal-omega
-    datamash    diamond
-    expat
-    faops       fastqc      fd          freebayes
-    gdbm
-    hmmer       hmmer2      hnsm        htslib      hyperfine
-    intspan
-    lastz
-    mash        megahit     minimap2    miniprot    mmseqs      mosdepth
-    multiz      mummer      muscle
-    nwr
-    pgr         phast       phylip      picard      pigz        pixman
-    raxml-ng    reseek      ripgrep
-    samtools    sickle      spoa
-    tealdeer    tokei       trimal      tsv-utils
-    usearch
-    zlib
+  ASTER
+  DALIGNER        DAZZ_DB
+  FASTGA          FASTK
+  MERQURY.FK
+  TRF
+  anchr           argtable
+  bcalm           bcftools        bifrost         bwa
+  clustal-omega   consel
+  datamash        diamond
+  expat
+  faops           fastqc          fd              freebayes
+  gdbm
+  hmmer           hmmer2          hnsm            htslib          hyperfine
+  intspan
+  lastz
+  mash            megahit         minimap2        miniprot        mmseqs
+  mosdepth        multiz          mummer          muscle
+  nwr
+  pgr             phast           phylip          picard          pigz
+  pixman
+  raxml-ng        reseek          ripgrep
+  samtools        sickle          spoa
+  tealdeer        tokei           trimal          tsv-utils
+  usearch
+  zlib
 
 ```

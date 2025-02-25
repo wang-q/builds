@@ -28,7 +28,7 @@ PERL_FMT='
         $count = 0;
     }
     $p = $c;
-    printf "    %-12s", $_;
+    printf "  %-14s", $_;
     $count++;
 '
 
