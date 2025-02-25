@@ -23,12 +23,12 @@ PERL_FMT='
         print "\n";
         $count = 0;
     }
-    if ($count > 0 and $count * 12 + 12 > $width) {
+    if ($count > 0 and $count * 16 + 16 > $width) {
         print "\n";
         $count = 0;
     }
     $p = $c;
-    printf "    %-8s", $_;
+    printf "    %-12s", $_;
     $count++;
 '
 
