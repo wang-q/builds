@@ -292,6 +292,14 @@ curl -o src/spoa.tar.gz -L https://github.com/rvaser/spoa/archive/refs/tags/4.1.
 
 curl -o src/diamond.tar.gz -L https://github.com/bbuchfink/diamond/archive/refs/tags/v2.1.11.tar.gz
 
+# Remove large files
+curl -L https://github.com/tjunier/newick_utils/archive/da121155a977197cab9fbb15953ca1b40b11eb87.tar.gz |
+    tar xvfz - &&
+    mv newick_utils-da121155a977197cab9fbb15953ca1b40b11eb87 newick-utils &&
+     fd -t f -S +500k . newick-utils -X rm &&
+    tar -czf src/newick-utils.tar.gz newick-utils/ &&
+    rm -rf newick-utils
+
 # manually
 mkdir -p FastTree &&
     curl -o FastTree/FastTree.c -L https://raw.githubusercontent.com/morgannprice/fasttree/refs/heads/main/old/FastTree-2.1.11.c &&
@@ -431,6 +439,8 @@ bash script/clustal-omega.sh
 bash script/bifrost.sh
 bash script/spoa.sh
 bash script/diamond.sh
+bash script/bcalm.sh
+bash script/newick-utils.sh
 
 ```
 
