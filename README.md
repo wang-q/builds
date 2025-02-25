@@ -196,6 +196,18 @@ curl -L https://github.com/inab/trimal/archive/refs/tags/v1.5.0.tar.gz |
     tar -czf src/trimal.tar.gz trimal-1.5.0/ &&
     rm -rf trimal-1.5.0
 
+curl -o src/DAZZ_DB.tar.gz -L https://github.com/thegenemyers/DAZZ_DB/archive/be65e5991ec0aa4ebbfa926ea00e3680de7b5760.tar.gz
+
+curl -o src/DALIGNER.tar.gz -L https://github.com/thegenemyers/DALIGNER/archive/a8e2f42f752f21d21c92fbc39c75b16b52c6cabe.tar.gz
+
+curl -o src/FASTK.tar.gz -L https://github.com/thegenemyers/FASTK/archive/ddea6cf254f378db51d22c6eb21af775fa9e1f77.tar.gz
+
+curl -o src/MERQURY.FK.tar.gz -L https://github.com/thegenemyers/MERQURY.FK/archive/a1005336b0eae8a1dd478017e3dbbae5366ccda5.tar.gz
+
+curl -o src/FASTGA.tar.gz -L https://github.com/thegenemyers/FASTGA/archive/e97c33ef4daeafdfbb7b5dda56d31eaac9a5e214.tar.gz
+
+curl -o src/multiz.tar.gz -L https://github.com/wang-q/multiz/archive/633c0f7814c887e9e7468ad42076d62496651cb8.tar.gz
+
 # ./configure
 curl -o src/datamash.tar.gz -L https://ftp.gnu.org/gnu/datamash/datamash-1.8.tar.gz
 
@@ -264,104 +276,19 @@ curl -o src/nwr.tar.gz -L https://github.com/wang-q/nwr/archive/refs/tags/v0.7.7
 
 curl -o src/intspan.tar.gz -L https://github.com/wang-q/intspan/archive/refs/tags/v0.8.4.tar.gz
 
+curl -o src/hnsm.tar.gz -L https://github.com/wang-q/hnsm/archive/refs/tags/v0.3.1.tar.gz
+
 curl -o src/pgr.tar.gz -L https://github.com/wang-q/pgr/archive/refs/tags/v0.1.0.tar.gz
+
+curl -o src/anchr.tar.gz -L https://github.com/wang-q/anchr/archive/fadc09fe502e7b31cf6bbd9fa29b7188bf42ae3a.tar.gz
 
 ```
 
 ## Source codes from git commit
 
-This section clones and sets up all required git repo at specific commits for reproducibility.
+This section clones recursively and sets up all required git repo at specific commits for reproducibility.
 
 ```bash
-# DAZZ_DB
-REPO=DAZZ_DB
-git clone https://github.com/thegenemyers/${REPO}.git
-cd ${REPO}
-git checkout be65e59
-
-rm -rf .git
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
-# DALIGNER
-REPO=DALIGNER
-git clone https://github.com/thegenemyers/${REPO}.git
-cd ${REPO}
-git checkout a8e2f42
-
-rm -rf .git
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
-# FASTK
-REPO=FASTK
-git clone https://github.com/thegenemyers/${REPO}.git
-cd ${REPO}
-git checkout ddea6cf
-
-rm -rf .git
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
-# MERQURY.FK
-REPO=MERQURY.FK
-git clone https://github.com/thegenemyers/${REPO}.git
-cd ${REPO}
-git checkout a100533
-
-rm -rf .git
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
-# FASTGA
-REPO=FASTGA
-git clone https://github.com/thegenemyers/${REPO}.git
-cd ${REPO}
-git checkout e97c33e
-
-rm -rf .git
-rm -fr EXAMPLE
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
-# multiz
-REPO=multiz
-git clone https://github.com/wang-q/${REPO}.git
-cd ${REPO}
-git checkout 633c0f7
-
-rm -rf .git
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
-# hnsm
-REPO=hnsm
-git clone https://github.com/wang-q/${REPO}.git
-cd ${REPO}
-git checkout f237c5d
-
-rm -rf .git
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
-# anchr
-REPO=anchr
-git clone https://github.com/wang-q/${REPO}.git
-cd ${REPO}
-git checkout fadc09f
-
-rm -rf .git
-cd ..
-tar -cf - ${REPO}/ | gzip -9 > src/${REPO}.tar.gz
-rm -rf ${REPO}
-
 # bcalm
 REPO=bcalm
 git clone --recursive https://github.com/GATB/${REPO}.git
