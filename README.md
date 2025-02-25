@@ -23,6 +23,75 @@
   * [Download and install binaries to `~/bin`](#download-and-install-binaries-to-bin)
 <!-- TOC -->
 
+
+## Download and install binaries
+
+This section provides instructions for downloading and installing pre-built binaries. The process:
+
+1. Creates the target directory if it doesn't exist
+2. Fetches the list of available binaries from GitHub
+3. Downloads and extracts each binary package
+4. Manages installed packages and their files
+
+```bash
+# List all available packages
+bash install.sh -a              # List all packages
+bash install.sh --linux         # List Linux packages
+bash install.sh --macos         # List macOS packages
+
+# List installed packages
+bash install.sh -l              # List all installed packages
+bash install.sh -l pigz         # List files in package pigz
+
+# List unbuilt packages
+bash install.sh -b              # List packages in script/ but not built
+
+# List foreign files
+bash install.sh -f              # List files not managed by the package manager
+
+# Install specific package(s)
+bash install.sh pigz multiz     # Install one or more packages
+
+# Remove package(s)
+bash install.sh -r pigz         # Remove one or more packages
+bash install.sh -u pigz         # Alternative way to remove packages
+
+# Show help message
+bash install.sh -h              # Show usage information
+bash install.sh --help          # Alternative way to show help
+
+```
+
+```text
+==> Available packages for Linux:
+  ASTER
+  DALIGNER        DAZZ_DB
+  FASTGA          FASTK
+  MERQURY.FK
+  TRF
+  anchr           argtable
+  bcalm           bcftools        bifrost         bwa
+  clustal-omega   consel
+  datamash        diamond
+  expat
+  faops           fastqc          fd              freebayes
+  gdbm
+  hmmer           hmmer2          hnsm            htslib          hyperfine
+  intspan
+  lastz
+  mash            megahit         minimap2        miniprot        mmseqs
+  mosdepth        multiz          mummer          muscle
+  newick-utils    nwr
+  paml            pgr             phast           phylip          picard
+  pigz            pixman
+  raxml-ng        reseek          ripgrep
+  samtools        sickle          spoa
+  tealdeer        tokei           trimal          tsv-utils
+  usearch
+  zlib
+
+```
+
 ## Design
 
 This project is designed like a package manager (similar to Homebrew), with the following features:
@@ -522,53 +591,5 @@ bash script/freebayes.sh
 # java
 bash script/fastqc.sh
 bash script/picard.sh
-
-```
-
-## Download and install binaries to `~/bin`
-
-This section provides instructions for downloading and installing all built binaries to your `~/bin`
-directory. The process:
-
-1. Creates the target directory if it doesn't exist
-2. Fetches the list of available binaries from GitHub
-3. Downloads and extracts each binary package
-
-```bash
-# List all available packages
-bash install.sh -l
-
-# Install specific package(s)
-bash install.sh intspan multiz
-
-```
-
-```text
-==> Available packages for Linux:
-  ASTER
-  DALIGNER        DAZZ_DB
-  FASTGA          FASTK
-  MERQURY.FK
-  TRF
-  anchr           argtable
-  bcalm           bcftools        bifrost         bwa
-  clustal-omega   consel
-  datamash        diamond
-  expat
-  faops           fastqc          fd              freebayes
-  gdbm
-  hmmer           hmmer2          hnsm            htslib          hyperfine
-  intspan
-  lastz
-  mash            megahit         minimap2        miniprot        mmseqs
-  mosdepth        multiz          mummer          muscle
-  newick-utils    nwr
-  paml            pgr             phast           phylip          picard
-  pigz            pixman
-  raxml-ng        reseek          ripgrep
-  samtools        sickle          spoa
-  tealdeer        tokei           trimal          tsv-utils
-  usearch
-  zlib
 
 ```
