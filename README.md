@@ -562,9 +562,9 @@ bash install.sh intspan multiz
   lastz
   mash            megahit         minimap2        miniprot        mmseqs
   mosdepth        multiz          mummer          muscle
-  nwr
-  pgr             phast           phylip          picard          pigz
-  pixman
+  newick-utils    nwr
+  paml            pgr             phast           phylip          picard
+  pigz            pixman
   raxml-ng        reseek          ripgrep
   samtools        sickle          spoa
   tealdeer        tokei           trimal          tsv-utils
