@@ -206,6 +206,12 @@ curl -o src/phast.tar.gz -L https://github.com/CshlSiepelLab/phast/archive/refs/
 
 curl -o src/bedtools.tar.gz -L https://github.com/arq5x/bedtools2/releases/download/v2.31.1/bedtools-2.31.1.tar.gz
 
+# just .tar file
+curl -L http://stat.sys.i.kyoto-u.ac.jp/prog/consel/pub/cnsls020.tgz |
+    tar xvf - &&
+    tar -czf src/consel.tar.gz consel/ &&
+    rm -fr consel
+
 # remove unnecessary files to reduce source size
 curl -L https://github.com/inab/trimal/archive/refs/tags/v1.5.0.tar.gz |
     tar xvfz - &&
@@ -545,7 +551,7 @@ bash install.sh intspan multiz
     mash        megahit     minimap2    miniprot    mmseqs      mosdepth
     multiz      mummer      muscle
     nwr
-    pgr         phast       picard      pigz        pixman
+    pgr         phast       phylip      picard      pigz        pixman
     raxml-ng    reseek      ripgrep
     samtools    sickle      spoa
     tealdeer    tokei       trimal      tsv-utils
