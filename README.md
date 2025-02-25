@@ -166,6 +166,8 @@ curl -L https://downloads.sourceforge.net/project/argtable/argtable/argtable-2.1
     tar -czf src/argtable.tar.gz argtable/ &&
     rm -rf argtable
 
+curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz
+
 curl -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz |
     tar xvfz - \
         --exclude='*/doc*' \
