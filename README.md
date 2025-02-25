@@ -533,6 +533,7 @@ bash script/raxml-ng.sh
 bash script/mash.sh
 bash script/megahit.sh
 bash script/mmseqs.sh
+bash script/freebayes.sh
 
 # java
 bash script/fastqc.sh
