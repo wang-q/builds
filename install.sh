@@ -10,6 +10,28 @@ else
     OS_TYPE="linux"
 fi
 
+# Define perl format script
+PERL_FMT='
+    BEGIN{
+        $p="";
+        $count=0;
+        $width=80;
+    }
+    chomp;
+    $c = substr($_, 0, 1);
+    if ($p ne "" and $c ne $p) {
+        print "\n";
+        $count = 0;
+    }
+    if ($count > 0 and $count * 12 + 12 > $width) {
+        print "\n";
+        $count = 0;
+    }
+    $p = $c;
+    printf "    %-8s", $_;
+    $count++;
+'
+
 # Get package names from command line arguments
 REMOTE_PKGS=()
 if [ $# -eq 0 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
@@ -31,14 +53,7 @@ elif [ "$1" == "-l" ]; then
         sed 's/^tar\///' |
         sed 's/\.linux\.tar\.gz$//' |
         sort |
-        perl -n -e '
-            BEGIN{$p=""}
-            chomp;
-            $c = substr($_, 0, 1);
-            print "\n" if $p ne "" and $c ne $p;
-            $p=$c;
-            printf "    %-8s", $_;
-            '
+        perl -n -e "${PERL_FMT}"
     echo
     exit 0
 elif [ "$1" == "-m" ]; then
@@ -49,14 +64,7 @@ elif [ "$1" == "-m" ]; then
         sed 's/^tar\///' |
         sed 's/\.macos\.tar\.gz$//' |
         sort |
-        perl -n -e '
-            BEGIN{$p=""}
-            chomp;
-            $c = substr($_, 0, 1);
-            print "\n" if $p ne "" and $c ne $p;
-            $p=$c;
-            printf "    %-8s", $_;
-            '
+        perl -n -e "${PERL_FMT}"
     echo
     exit 0
 fi

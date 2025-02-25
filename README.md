@@ -565,6 +565,7 @@ bash install.sh intspan multiz
 
 ```text
 ==> Available packages for Linux:
+==> Available packages for Linux:
     DALIGNER    DAZZ_DB
     FASTGA      FASTK
     MERQURY.FK
@@ -573,12 +574,14 @@ bash install.sh intspan multiz
     bcalm       bcftools    bifrost     bwa
     clustal-omega
     datamash    diamond
-    faops       fastqc      fd
+    expat
+    faops       fastqc      fd          freebayes
     gdbm
     hmmer       hmmer2      hnsm        htslib      hyperfine
     intspan
     lastz
-    mash        megahit     minimap2    miniprot    mmseqs      multiz      mummer      muscle
+    mash        megahit     minimap2    miniprot    mmseqs      mosdepth
+    multiz      mummer      muscle
     nwr
     pgr         phast       picard      pigz        pixman
     raxml-ng    reseek      ripgrep
