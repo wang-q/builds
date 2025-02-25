@@ -36,17 +36,15 @@ This project is designed like a package manager (similar to Homebrew), with the 
 2. Cross-platform support
     * Linux (glibc 2.17) and macOS (aarch64)
     * Zig as cross-compiler
-    * Handle architecture-specific build parameters
 
 3. Unified directory structure
     * `src/` - Source packages
-    * `tar/` - Build artifacts
     * `script/` - Build scripts
+    * `tar/` - Build artifacts
 
 4. Modular design
     * `common.sh` - Common functions and variables
     * Individual build script for each package
-    * Support building specific packages
 
 The main focus is on bioinformatics tools, with special attention to glibc 2.17 (CentOS 7)
 compatibility.
