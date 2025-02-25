@@ -210,6 +210,14 @@ curl -o src/FASTGA.tar.gz -L https://github.com/thegenemyers/FASTGA/archive/e97c
 
 curl -o src/multiz.tar.gz -L https://github.com/wang-q/multiz/archive/633c0f7814c887e9e7468ad42076d62496651cb8.tar.gz
 
+curl -L https://github.com/chaoszhang/ASTER/archive/e8da7edf8adf4205cf5551630dc77bb81497092b.tar.gz |
+    tar xvfz - &&
+    mv ASTER-* ASTER &&
+    rm -fr ASTER/example &&
+    rm ASTER/exe/* &&
+    tar -czf src/ASTER.tar.gz ASTER/ &&
+    rm -rf ASTER
+
 # ./configure
 curl -o src/datamash.tar.gz -L https://ftp.gnu.org/gnu/datamash/datamash-1.8.tar.gz
 
@@ -336,6 +344,7 @@ bash script/DAZZ_DB.sh
 bash script/DALIGNER.sh
 
 bash script/lastz.sh
+bash script/ASTER.sh
 
 # depend on zlib
 bash script/MERQURY.FK.sh
