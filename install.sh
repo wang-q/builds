@@ -41,10 +41,24 @@ if [ $# -eq 0 ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
     echo "  -h, --help    Show this help message"
     echo "  -l           List packages for Linux"
     echo "  -m           List packages for macOS"
+    echo "  -n           List packages not built yet"
     echo
     echo "Examples:"
     echo "  bash $0 pigz    # Install specified packages"
     exit 1
+elif [ "$1" == "-n" ]; then
+    echo "==> Packages in script/ but not built for Linux:"
+    comm -23 \
+        <(find script/ -name "*.sh" ! -name "common.sh" ! -name "rust.sh" -printf "%f\n" | sed 's/\.sh$//' | sort) \
+        <(curl -fsSL https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
+            jq -r '.tree[] | select(.path | startswith("tar/")) | .path' |
+            grep "\.linux\.tar\.gz$" |
+            sed 's/^tar\///' |
+            sed 's/\.linux\.tar\.gz$//' |
+            sort) |
+        perl -n -e "${PERL_FMT}"
+    echo
+    exit 0
 elif [ "$1" == "-l" ]; then
     echo "==> Available packages for Linux:"
     curl -fsSL https://api.github.com/repos/wang-q/builds/git/trees/master?recursive=1 |
