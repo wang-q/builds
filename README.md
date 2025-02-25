@@ -230,8 +230,6 @@ curl -L https://github.com/samtools/bcftools/releases/download/1.21/bcftools-1.2
 # FastTree
 # iqtree2
 # gatk
-# freebayes
-# mosdepth
 
 # cmake
 curl -o src/bifrost.tar.gz -L https://github.com/pmelsted/bifrost/archive/refs/tags/v1.3.5.tar.gz
@@ -524,6 +522,12 @@ rm ${BIN}
 
 BIN=muscle
 curl -o ${BIN} -L https://github.com/rcedgar/muscle/releases/download/v5.3/muscle-linux-x86.v5.3
+chmod +x ${BIN}
+tar -cf - ${BIN} | gzip -9 > tar/${BIN}.linux.tar.gz
+rm ${BIN}
+
+BIN=mosdepth
+curl -o ${BIN} -L https://github.com/brentp/mosdepth/releases/download/v0.3.11/mosdepth
 chmod +x ${BIN}
 tar -cf - ${BIN} | gzip -9 > tar/${BIN}.linux.tar.gz
 rm ${BIN}
