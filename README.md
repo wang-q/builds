@@ -166,6 +166,19 @@ curl -L https://downloads.sourceforge.net/project/argtable/argtable/argtable-2.1
     tar -czf src/argtable.tar.gz argtable/ &&
     rm -rf argtable
 
+curl -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz |
+    tar xvfz - \
+        --exclude='*/doc*' \
+        --exclude='*/test*' \
+        --exclude='*/example*' \
+        --exclude='*/sample*' \
+        --exclude='*/status' \
+        --exclude='*/tools' \
+        --exclude='*/more' &&
+    mv boost-1.87.0 boost &&
+    tar -czf src/boost.tar.gz boost/ &&
+    rm -rf boost
+
 curl -o src/clapack.tar.gz -L https://www.netlib.org/clapack/clapack-3.2.1-CMAKE.tgz
 
 # Makefile
@@ -231,6 +244,8 @@ curl -L http://eddylab.org/software/hmmer/2.4i/hmmer-2.4i.tar.gz |
     mv hmmer-2.4i hmmer2 &&
     tar -czf src/hmmer2.tar.gz hmmer2/ &&
     rm -rf hmmer2
+
+curl -o src/MaSuRCA.tar.gz -L https://github.com/alekseyzimin/masurca/releases/download/v4.1.2/MaSuRCA-4.1.2.tar.gz
 
 curl -o src/mummer.tar.gz -L https://github.com/mummer4/mummer/releases/download/v4.0.1/mummer-4.0.1.tar.gz
 
@@ -508,6 +523,7 @@ bash install.sh intspan multiz
 
 ```text
 ==> Available packages for Linux:
+    ASTER
     DALIGNER    DAZZ_DB
     FASTGA      FASTK
     MERQURY.FK
