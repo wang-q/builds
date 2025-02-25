@@ -42,7 +42,7 @@ platforms.
 * Linux (glibc 2.17+) or macOS (Apple Silicon)
 * Bash shell
 * curl
-* A directory in your `$PATH` (default: ~/bin)
+* A directory `$HOME/bin` in your `$PATH`
 
 ## Installation
 
@@ -60,6 +60,7 @@ chmod +x install.sh
 curl -LO https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
 chmod +x jq-linux-amd64
 mv jq-linux-amd64 ~/bin/jq
+# or sudo apt install jq
 
 # Verify the installation
 bash install.sh -h
@@ -94,9 +95,6 @@ bash install.sh --macos         # List macOS packages
 bash install.sh -l              # List all installed packages
 bash install.sh -l pigz         # List files in package pigz
 
-# List unbuilt packages
-bash install.sh -b              # List packages in script/ but not built
-
 # List foreign files
 bash install.sh -f              # List files not managed by the package manager
 
@@ -110,6 +108,9 @@ bash install.sh -u pigz         # Alternative way to remove packages
 # Show help message
 bash install.sh -h              # Show usage information
 bash install.sh --help          # Alternative way to show help
+
+# Development Commands
+bash install.sh -b              # List packages in script/ but not built
 
 ```
 
