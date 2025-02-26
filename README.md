@@ -417,6 +417,8 @@ curl -o src/spoa.tar.gz -L https://github.com/rvaser/spoa/archive/refs/tags/4.1.
 
 curl -o src/diamond.tar.gz -L https://github.com/bbuchfink/diamond/archive/refs/tags/v2.1.11.tar.gz
 
+curl -o src/libdeflate.tar.gz -L https://github.com/ebiggers/libdeflate/archive/refs/tags/v1.23.tar.gz
+
 # Remove large files
 curl -L https://github.com/tjunier/newick_utils/archive/da121155a977197cab9fbb15953ca1b40b11eb87.tar.gz |
     tar xvfz - &&
@@ -734,10 +736,6 @@ $ bash install.sh --dep bwa
         libkeyutils.so.1 => /lib/x86_64-linux-gnu/libkeyutils.so.1 (0x00007f6f5a0e9000)
         libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f6f5a0d4000)
         libffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x00007f6f5a0c8000)
-
-==> Dependencies for package bwa:
-  File: bwa
-        librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f40358ed000)
 
 ```
 
