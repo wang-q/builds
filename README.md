@@ -507,6 +507,8 @@ bash script/DALIGNER.sh
 bash script/lastz.sh
 bash script/ASTER.sh
 
+bash script/trimal.sh
+
 # depend on zlib
 bash script/MERQURY.FK.sh
 bash script/FASTGA.sh
@@ -584,9 +586,6 @@ Built on a CentOS 7 VM
 ```bash
 # zig
 bash script/FASTK.sh
-
-# gcc 4.8
-bash script/trimal.sh
 
 ```
 
@@ -701,10 +700,6 @@ $ bash install.sh --dep bwa
 ```
 
 ```text
-==> Dependencies for package bcalm:
-  File: bcalm
-        libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f1c0c789000)
-
 ==> Dependencies for package FASTK:
   File: FastK
         libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f6f5b415000)
