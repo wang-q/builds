@@ -208,6 +208,11 @@ check_dependencies() {
     echo "==> Dependencies for package ${pkg}:"
     while read -r file; do
         local full_path="$HOME/bin/$file"
+        # skip symlinks
+        if [ -L "$full_path" ]; then
+            continue
+        fi
+
         if [ -f "$full_path" ] && [ -x "$full_path" ]; then
             # skip text files
             if file "$full_path" | grep -q "text"; then

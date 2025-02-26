@@ -819,34 +819,6 @@ $ bash install.sh --dep muscle
   File: xmlwf
         libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007fe368ea0000)
 
-==> Dependencies for package gdbm:
-  File: gdbm_dump
-        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f4eca15c000)
-
-  File: gdbm_load
-        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007efd7c1cc000)
-
-  File: gdbmtool
-        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f3eaf5a8000)
-
-  File: lib/libgdbm_compat.so
-        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f32d9727000)
-
-  File: lib/libgdbm.so.6
-    No additional dependencies
-
-  File: lib/libgdbm.so.6.0.0
-    No additional dependencies
-
-  File: lib/libgdbm_compat.so.4
-        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f37ba0de000)
-
-  File: lib/libgdbm.so
-    No additional dependencies
-
-  File: lib/libgdbm_compat.so.4.0.0
-        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007fbfac47b000)
-
 ```
 
 ## License

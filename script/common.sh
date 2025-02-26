@@ -68,7 +68,7 @@ build_tar() {
         { echo "Error: collect directory not found"; exit 1; }
 
     # Remove unnecessary documentation directories
-    rm -rf share/info/ share/man/ share/doc/
+    rm -rf share/info/ share/man/ share/doc/ share/locale/
 
     tar -cf - * | gzip -9 > ${TEMP_DIR}/${FN_TAR} ||
         { echo "Error: Failed to create archive"; exit 1; }
