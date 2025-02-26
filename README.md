@@ -584,7 +584,6 @@ Built on a CentOS 7 VM
 bash script/FASTK.sh
 
 # gcc 4.8
-bash script/bcalm.sh
 bash script/trimal.sh
 
 ```
@@ -691,6 +690,162 @@ $ bash install.sh --dep muscle
 ==> Dependencies for package muscle:
   File: muscle
     Static executable
+
+```
+
+```text
+==> Dependencies for package bcalm:
+  File: bcalm
+        libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f1c0c789000)
+
+==> Dependencies for package FASTK:
+  File: FastK
+        libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f6f5b415000)
+        libbz2.so.1 => /lib/x86_64-linux-gnu/libbz2.so.1 (0x00007f6f5b401000)
+        liblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007f6f5b3cf000)
+        libcurl.so.4 => /lib/x86_64-linux-gnu/libcurl.so.4 (0x00007f6f5b30e000)
+        libnghttp2.so.14 => /lib/x86_64-linux-gnu/libnghttp2.so.14 (0x00007f6f5b0ca000)
+        libidn2.so.0 => /lib/x86_64-linux-gnu/libidn2.so.0 (0x00007f6f5b0a8000)
+        librtmp.so.1 => /lib/x86_64-linux-gnu/librtmp.so.1 (0x00007f6f5b08a000)
+        libssh.so.4 => /lib/x86_64-linux-gnu/libssh.so.4 (0x00007f6f5b019000)
+        libpsl.so.5 => /lib/x86_64-linux-gnu/libpsl.so.5 (0x00007f6f5b003000)
+        libssl.so.3 => /lib/x86_64-linux-gnu/libssl.so.3 (0x00007f6f5af59000)
+        libcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007f6f5aa46000)
+        libgssapi_krb5.so.2 => /lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007f6f5a9f2000)
+        libldap.so.2 => /lib/x86_64-linux-gnu/libldap.so.2 (0x00007f6f5a995000)
+        liblber.so.2 => /lib/x86_64-linux-gnu/liblber.so.2 (0x00007f6f5a985000)
+        libzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007f6f5a8c9000)
+        libbrotlidec.so.1 => /lib/x86_64-linux-gnu/libbrotlidec.so.1 (0x00007f6f5a8bb000)
+        libunistring.so.5 => /lib/x86_64-linux-gnu/libunistring.so.5 (0x00007f6f5a70e000)
+        libgnutls.so.30 => /lib/x86_64-linux-gnu/libgnutls.so.30 (0x00007f6f5a514000)
+        libhogweed.so.6 => /lib/x86_64-linux-gnu/libhogweed.so.6 (0x00007f6f5a4cc000)
+        libnettle.so.8 => /lib/x86_64-linux-gnu/libnettle.so.8 (0x00007f6f5a477000)
+        libgmp.so.10 => /lib/x86_64-linux-gnu/libgmp.so.10 (0x00007f6f5a3f1000)
+        libkrb5.so.3 => /lib/x86_64-linux-gnu/libkrb5.so.3 (0x00007f6f5a328000)
+        libk5crypto.so.3 => /lib/x86_64-linux-gnu/libk5crypto.so.3 (0x00007f6f5a2fc000)
+        libcom_err.so.2 => /lib/x86_64-linux-gnu/libcom_err.so.2 (0x00007f6f5a2f6000)
+        libkrb5support.so.0 => /lib/x86_64-linux-gnu/libkrb5support.so.0 (0x00007f6f5a2e9000)
+        libsasl2.so.2 => /lib/x86_64-linux-gnu/libsasl2.so.2 (0x00007f6f5a2cd000)
+        libbrotlicommon.so.1 => /lib/x86_64-linux-gnu/libbrotlicommon.so.1 (0x00007f6f5a2aa000)
+        libp11-kit.so.0 => /lib/x86_64-linux-gnu/libp11-kit.so.0 (0x00007f6f5a106000)
+        libtasn1.so.6 => /lib/x86_64-linux-gnu/libtasn1.so.6 (0x00007f6f5a0f0000)
+        libkeyutils.so.1 => /lib/x86_64-linux-gnu/libkeyutils.so.1 (0x00007f6f5a0e9000)
+        libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f6f5a0d4000)
+        libffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x00007f6f5a0c8000)
+
+==> Dependencies for package bifrost:
+  File: Bifrost
+        libbifrost.so => not found
+
+  File: libbifrost.so
+    No additional dependencies
+
+==> Dependencies for package clustal-omega:
+  File: clustalo
+        libargtable2.so.0 => /home/wangq/bin/lib/libargtable2.so.0 (0x00007f9ce95bb000)
+
+==> Dependencies for package mummer:
+  File: annotate-mummer
+        libumdmummer.so.0 => not found
+
+  File: combineMUMs
+        libumdmummer.so.0 => not found
+
+  File: delta-filter
+        libumdmummer.so.0 => not found
+
+  File: lib/libumdmummer.so.0
+    No additional dependencies
+
+  File: lib/libumdmummer.so.0.0.0
+    No additional dependencies
+
+  File: lib/libumdmummer.so
+    No additional dependencies
+
+  File: libexec/mummer/postpro
+        libumdmummer.so.0 => not found
+
+  File: libexec/mummer/postnuc
+        libumdmummer.so.0 => not found
+
+  File: libexec/mummer/prepro
+        libumdmummer.so.0 => not found
+
+  File: libexec/mummer/prenuc
+        libumdmummer.so.0 => not found
+
+  File: libexec/mummer/mgaps
+        libumdmummer.so.0 => not found
+
+  File: mummer
+        libumdmummer.so.0 => not found
+
+  File: nucmer
+        libumdmummer.so.0 => not found
+
+  File: repeat-match
+        libumdmummer.so.0 => not found
+
+  File: show-aligns
+        libumdmummer.so.0 => not found
+
+  File: show-coords
+        libumdmummer.so.0 => not found
+
+  File: show-diff
+        libumdmummer.so.0 => not found
+
+  File: show-snps
+        libumdmummer.so.0 => not found
+
+  File: show-tiling
+        libumdmummer.so.0 => not found
+
+==> Dependencies for package bwa:
+  File: bwa
+        librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f40358ed000)
+
+==> Dependencies for package expat:
+  File: lib/libexpat.so.1.10.0
+    No additional dependencies
+
+  File: lib/libexpat.so
+    No additional dependencies
+
+  File: lib/libexpat.so.1
+    No additional dependencies
+
+  File: xmlwf
+        libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007fe368ea0000)
+
+==> Dependencies for package gdbm:
+  File: gdbm_dump
+        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f4eca15c000)
+
+  File: gdbm_load
+        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007efd7c1cc000)
+
+  File: gdbmtool
+        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f3eaf5a8000)
+
+  File: lib/libgdbm_compat.so
+        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f32d9727000)
+
+  File: lib/libgdbm.so.6
+    No additional dependencies
+
+  File: lib/libgdbm.so.6.0.0
+    No additional dependencies
+
+  File: lib/libgdbm_compat.so.4
+        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007f37ba0de000)
+
+  File: lib/libgdbm.so
+    No additional dependencies
+
+  File: lib/libgdbm_compat.so.4.0.0
+        libgdbm.so.6 => /lib/x86_64-linux-gnu/libgdbm.so.6 (0x00007fbfac47b000)
 
 ```
 
