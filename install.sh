@@ -39,19 +39,21 @@ show_help() {
     echo "Options:"
     echo "  -h, --help  Show this help message"
     echo "  -a          List all available packages"
-    echo "  -b          List unbuilt packages"
     echo "  -l          List installed packages"
-    echo "  -f          List foreign files in ~/bin"
     echo "  -r, -u      Remove installed packages"
     echo "  --linux     List packages for Linux"
     echo "  --macos     List packages for macOS"
     echo
     echo "Examples:"
     echo "  bash $0 -l              # List installed packages"
-    echo "  bash $0 -f              # List foreign files"
     echo "  bash $0 -a              # List all available packages"
     echo "  bash $0 pigz minimap2   # Install specified packages"
     echo "  bash $0 -r pigz         # Remove specified packages"
+    echo
+    echo "Dev:"
+    echo "  -f          List foreign files in ~/bin"
+    echo "  -b          List unbuilt packages"
+    echo "  --dep       Check dynamic dependencies"
 }
 
 list_packages() {
@@ -194,6 +196,51 @@ install_remote_package() {
     return 0
 }
 
+check_dependencies() {
+    local pkg="$1"
+    local record_dir="$HOME/bin/.builds"
+
+    if [ ! -f "${record_dir}/${pkg}.files" ]; then
+        echo "Warning: Package ${pkg} is not installed"
+        return 1
+    fi
+
+    echo "==> Dependencies for package ${pkg}:"
+    while read -r file; do
+        local full_path="$HOME/bin/$file"
+        if [ -f "$full_path" ] && [ -x "$full_path" ]; then
+            # skip text files
+            if file "$full_path" | grep -q "text"; then
+                continue
+            fi
+
+            echo "  File: $file"
+            if command -v ldd >/dev/null 2>&1; then
+                # Store ldd output in a variable
+                local ldd_out=$(ldd "$full_path" 2>&1)
+                if [[ $ldd_out == *"not a dynamic executable"* ]]; then
+                    echo "    Static executable"
+                else
+                    local deps=$(
+                        echo "$ldd_out" |
+                            grep -v -E 'linux-vdso|ld-linux' |
+                            grep -v -E 'libc.so|libpthread' |
+                            grep -v -E 'libm.so|libgcc_s.so|libstdc\+\+'
+                        )
+                    if [ -n "$deps" ]; then
+                        echo "$deps" | sed 's/^/    /'
+                    else
+                        echo "    No additional dependencies"
+                    fi
+                fi
+            else
+                echo "    Warning: ldd not found"
+            fi
+            echo
+        fi
+    done < "${record_dir}/${pkg}.files"
+}
+
 # Process command line options
 while getopts "habflr:u:-:" opt; do
     case $opt in
@@ -243,6 +290,17 @@ while getopts "habflr:u:-:" opt; do
                     ;;
                 macos)
                     list_macos
+                    exit 0
+                    ;;
+                dep)
+                    if [ $# -lt 2 ]; then
+                        echo "Error: Please specify package(s) to check"
+                        exit 1
+                    fi
+                    shift
+                    for pkg in "$@"; do
+                        check_dependencies "$pkg"
+                    done
                     exit 0
                     ;;
                 *)

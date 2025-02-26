@@ -41,6 +41,7 @@ platforms.
 
 * Linux (glibc 2.17+) or macOS (Apple Silicon)
 * Bash shell
+* Perl
 * curl
 * A directory `$HOME/bin` in your `$PATH`
 
@@ -180,8 +181,9 @@ compatibility.
 
 - Linux or Windows WSL
 - Zig 0.13.0
-- Rust (latest stable version)
-- Git (latest version)
+- Rust
+- Git
+- file
 
 ### Zig
 
@@ -644,6 +646,45 @@ bash script/freebayes.sh
 # java
 bash script/fastqc.sh
 bash script/picard.sh
+
+```
+
+## Dynamic Library Dependencies
+
+The binaries in this project have minimal dynamic library dependencies:
+
+1. Core System Libraries
+   * linux-vdso.so.1 - Virtual dynamic shared object
+   * libc.so.6 - GNU C Library (glibc)
+   * libpthread.so.0 - POSIX threads library
+   * /lib64/ld-linux-x86-64.so.2 - Dynamic linker/loader
+
+2. C/C++ Runtime Libraries
+   * libstdc++.so.6 - GNU Standard C++ Library
+   * libm.so.6 - Math library
+   * libgcc_s.so.1 - GCC support library
+
+Example of checking dependencies:
+
+```text
+$ ldd ~/bin/trimal
+        linux-vdso.so.1 (0x00007ffff4599000)
+        libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f796772c000)
+        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f7967643000)
+        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f7967615000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f7967403000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f79679b6000)
+
+$ bash install.sh --dep trimal
+==> Dependencies for package trimal:
+  File: readal
+    No additional dependencies
+
+  File: statal
+    No additional dependencies
+
+  File: trimal
+    No additional dependencies
 
 ```
 
