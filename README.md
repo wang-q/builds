@@ -657,6 +657,7 @@ The binaries in this project have minimal dynamic library dependencies:
    * linux-vdso.so.1 - Virtual dynamic shared object
    * libc.so.6 - GNU C Library (glibc)
    * libpthread.so.0 - POSIX threads library
+   * libdl.so.2 - Dynamic linking library
    * /lib64/ld-linux-x86-64.so.2 - Dynamic linker/loader
 
 2. C/C++ Runtime Libraries
@@ -685,6 +686,11 @@ $ bash install.sh --dep trimal
 
   File: trimal
     No additional dependencies
+
+$ bash install.sh --dep muscle
+==> Dependencies for package muscle:
+  File: muscle
+    Static executable
 
 ```
 

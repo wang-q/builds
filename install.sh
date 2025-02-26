@@ -3,6 +3,30 @@
 # Create target directory if it doesn't exist
 mkdir -p $HOME/bin
 
+# Function definitions
+show_help() {
+    echo "Usage: $0 [options] [package1 package2 ...]"
+    echo
+    echo "Options:"
+    echo "  -h, --help  Show this help message"
+    echo "  -a          List all available packages"
+    echo "  -l          List installed packages"
+    echo "  -r, -u      Remove installed packages"
+    echo "  --linux     List packages for Linux"
+    echo "  --macos     List packages for macOS"
+    echo
+    echo "Examples:"
+    echo "  bash $0 -l              # List installed packages"
+    echo "  bash $0 -a              # List all available packages"
+    echo "  bash $0 pigz minimap2   # Install specified packages"
+    echo "  bash $0 -r pigz         # Remove specified packages"
+    echo
+    echo "Dev options:"
+    echo "  -f          List foreign files in ~/bin"
+    echo "  -b          List unbuilt packages"
+    echo "  --dep       Check dynamic dependencies"
+}
+
 # Detect platform
 if [[ "$(uname)" == "Darwin" ]]; then
     OS_TYPE="macos"
@@ -31,30 +55,6 @@ PERL_FMT='
     printf "  %-14s", $_;
     $count++;
 '
-
-# Function definitions
-show_help() {
-    echo "Usage: $0 [options] [package1 package2 ...]"
-    echo
-    echo "Options:"
-    echo "  -h, --help  Show this help message"
-    echo "  -a          List all available packages"
-    echo "  -l          List installed packages"
-    echo "  -r, -u      Remove installed packages"
-    echo "  --linux     List packages for Linux"
-    echo "  --macos     List packages for macOS"
-    echo
-    echo "Examples:"
-    echo "  bash $0 -l              # List installed packages"
-    echo "  bash $0 -a              # List all available packages"
-    echo "  bash $0 pigz minimap2   # Install specified packages"
-    echo "  bash $0 -r pigz         # Remove specified packages"
-    echo
-    echo "Dev:"
-    echo "  -f          List foreign files in ~/bin"
-    echo "  -b          List unbuilt packages"
-    echo "  --dep       Check dynamic dependencies"
-}
 
 list_packages() {
     local pattern="$1"
@@ -224,7 +224,7 @@ check_dependencies() {
                     local deps=$(
                         echo "$ldd_out" |
                             grep -v -E 'linux-vdso|ld-linux' |
-                            grep -v -E 'libc.so|libpthread' |
+                            grep -v -E 'libc.so|libpthread|libdl.so' |
                             grep -v -E 'libm.so|libgcc_s.so|libstdc\+\+'
                         )
                     if [ -n "$deps" ]; then
