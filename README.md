@@ -262,6 +262,10 @@ rustup target add aarch64-apple-darwin
 # Basic libraries
 curl -o src/zlib.tar.gz -L https://zlib.net/zlib-1.3.1.tar.gz
 
+curl -o src/bzip2.tar.gz -L https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
+
+curl -o src/xz.tar.gz -L https://github.com/tukaani-project/xz/releases/download/v5.6.4/xz-5.6.4.tar.gz
+
 curl -o src/gdbm.tar.gz -L https://ftp.gnu.org/gnu/gdbm/gdbm-1.24.tar.gz
 
 curl -o src/expat.tar.gz -L https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.gz
@@ -325,8 +329,6 @@ curl -o src/mafft.tar.gz -L https://gitlab.com/sysimm/mafft/-/archive/v7.526/maf
 
 curl -o src/phast.tar.gz -L https://github.com/CshlSiepelLab/phast/archive/refs/tags/v1.7.tar.gz
 
-curl -o src/bedtools.tar.gz -L https://github.com/arq5x/bedtools2/releases/download/v2.31.1/bedtools-2.31.1.tar.gz
-
 # just .tar file
 curl -L http://stat.sys.i.kyoto-u.ac.jp/prog/consel/pub/cnsls020.tgz |
     tar xvf - &&
@@ -340,6 +342,17 @@ curl -L https://github.com/inab/trimal/archive/refs/tags/v1.5.0.tar.gz |
     rm -fr trimal-1.5.0/docs/ &&
     tar -czf src/trimal.tar.gz trimal-1.5.0/ &&
     rm -rf trimal-1.5.0
+
+curl -L https://github.com/arq5x/bedtools2/archive/refs/tags/v2.31.1.tar.gz |
+    tar xvfz - \
+        --exclude='*/docs*' \
+        --exclude='*/data*' \
+        --exclude='*/genomes*' \
+        --exclude='*/tes*t' \
+        --exclude='*/tutorial*' &&
+    mv bedtools2-2.31.1 bedtools &&
+    tar -czf src/bedtools.tar.gz bedtools/ &&
+    rm -rf bedtools
 
 # use specific commit to ensure reproducibility
 curl -o src/DAZZ_DB.tar.gz -L https://github.com/thegenemyers/DAZZ_DB/archive/be65e5991ec0aa4ebbfa926ea00e3680de7b5760.tar.gz
@@ -495,6 +508,12 @@ bash install.sh zlib
 bash script/libdeflate.sh
 bash install.sh libdeflate
 
+bash script/bzip2.sh
+bash install.sh bzip2
+
+bash script/xz.sh
+bash install.sh xz
+
 bash script/gdbm.sh
 bash script/expat.sh
 bash script/pixman.sh
@@ -518,6 +537,7 @@ bash script/ASTER.sh
 bash script/trimal.sh
 bash script/phylip.sh
 bash script/consel.sh
+bash script/paml.sh
 
 # depend on zlib
 bash script/MERQURY.FK.sh
