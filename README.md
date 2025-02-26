@@ -744,80 +744,9 @@ $ bash install.sh --dep muscle
   File: clustalo
         libargtable2.so.0 => /home/wangq/bin/lib/libargtable2.so.0 (0x00007f9ce95bb000)
 
-==> Dependencies for package mummer:
-  File: annotate-mummer
-        libumdmummer.so.0 => not found
-
-  File: combineMUMs
-        libumdmummer.so.0 => not found
-
-  File: delta-filter
-        libumdmummer.so.0 => not found
-
-  File: lib/libumdmummer.so.0
-    No additional dependencies
-
-  File: lib/libumdmummer.so.0.0.0
-    No additional dependencies
-
-  File: lib/libumdmummer.so
-    No additional dependencies
-
-  File: libexec/mummer/postpro
-        libumdmummer.so.0 => not found
-
-  File: libexec/mummer/postnuc
-        libumdmummer.so.0 => not found
-
-  File: libexec/mummer/prepro
-        libumdmummer.so.0 => not found
-
-  File: libexec/mummer/prenuc
-        libumdmummer.so.0 => not found
-
-  File: libexec/mummer/mgaps
-        libumdmummer.so.0 => not found
-
-  File: mummer
-        libumdmummer.so.0 => not found
-
-  File: nucmer
-        libumdmummer.so.0 => not found
-
-  File: repeat-match
-        libumdmummer.so.0 => not found
-
-  File: show-aligns
-        libumdmummer.so.0 => not found
-
-  File: show-coords
-        libumdmummer.so.0 => not found
-
-  File: show-diff
-        libumdmummer.so.0 => not found
-
-  File: show-snps
-        libumdmummer.so.0 => not found
-
-  File: show-tiling
-        libumdmummer.so.0 => not found
-
 ==> Dependencies for package bwa:
   File: bwa
         librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f40358ed000)
-
-==> Dependencies for package expat:
-  File: lib/libexpat.so.1.10.0
-    No additional dependencies
-
-  File: lib/libexpat.so
-    No additional dependencies
-
-  File: lib/libexpat.so.1
-    No additional dependencies
-
-  File: xmlwf
-        libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007fe368ea0000)
 
 ```
 

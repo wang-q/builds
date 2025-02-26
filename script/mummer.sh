@@ -9,6 +9,7 @@ extract_source
 # Build mummer with the specified target architecture
 CC="zig cc -target ${TARGET_ARCH}" \
 CXX="zig c++ -target ${TARGET_ARCH}" \
+LDFLAGS="-static" \
     ./configure \
     --prefix="${TEMP_DIR}/collect" \
     --bindir="${TEMP_DIR}/collect" \
@@ -26,6 +27,8 @@ done
 
 # Rename binary
 mv ${TEMP_DIR}/collect/annotate ${TEMP_DIR}/collect/annotate-mummer
+
+# ldd ${TEMP_DIR}/collect/mummer
 
 # Use build_tar function from common.sh
 build_tar

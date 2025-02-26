@@ -12,6 +12,7 @@ extract_source
 CC="zig cc -target ${TARGET_ARCH}" \
 CFLAGS="-Wno-implicit-function-declaration" \
 CXX="zig c++ -target ${TARGET_ARCH}" \
+LDFLAGS="-static" \
     ./configure \
     --prefix="${TEMP_DIR}/collect" \
     --bindir="${TEMP_DIR}/collect" \
