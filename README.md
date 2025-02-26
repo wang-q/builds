@@ -498,6 +498,7 @@ bash install.sh libdeflate
 bash script/gdbm.sh
 bash script/expat.sh
 bash script/pixman.sh
+bash script/libpng.sh
 
 bash script/argtable.sh
 
@@ -514,8 +515,9 @@ bash script/DALIGNER.sh
 
 bash script/lastz.sh
 bash script/ASTER.sh
-
 bash script/trimal.sh
+bash script/phylip.sh
+bash script/consel.sh
 
 # depend on zlib
 bash script/MERQURY.FK.sh

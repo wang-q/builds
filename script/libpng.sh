@@ -8,25 +8,25 @@ extract_source
 
 # ./configure --help
 
-# TODO
-# checking for /home/wangq/binzlibVersion in -lz... no
-# configure: error: zlib not installed
-
 # Build with the specified target architecture
 CC="zig cc -target ${TARGET_ARCH}" \
-CXX="zig c++ -target ${TARGET_ARCH}" \
+CFLAGS="-I$HOME/bin/include" \
+LDFLAGS="-L$HOME/bin/lib" \
+CPPFLAGS="-I$HOME/bin/include" \
     ./configure \
     --prefix="${TEMP_DIR}/collect" \
+    --bindir="${TEMP_DIR}/collect" \
     --disable-dependency-tracking \
     --disable-silent-rules \
     --with-zlib-prefix="${HOME}/bin" \
+    --disable-shared \
+    --enable-static \
     || exit 1
 make -j 8 || exit 1
 make install || exit 1
-# CFLAGS="-I$HOME/bin/include" \
-# LDFLAGS="-L$HOME/bin/lib" \
 
-tree "${TEMP_DIR}/collect"
+# tree "${TEMP_DIR}/collect"
+# ldd "${TEMP_DIR}/collect/libpng16-config"
 
-# # Use build_tar function from common.sh
-# build_tar
+# Use build_tar function from common.sh
+build_tar
