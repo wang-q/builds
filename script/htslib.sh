@@ -6,6 +6,8 @@ source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 # Extract source code
 extract_source
 
+# ./configure --help
+
 # Build with the specified target architecture
 CC="zig cc -target ${TARGET_ARCH}" \
 CXX="zig c++ -target ${TARGET_ARCH}" \
@@ -14,6 +16,7 @@ LDFLAGS="-L$HOME/bin/lib" \
     ./configure \
     --prefix="${TEMP_DIR}/collect" \
     --bindir="${TEMP_DIR}/collect" \
+    --with-libdeflate \
     --disable-bz2 \
     --disable-lzma \
     || exit 1

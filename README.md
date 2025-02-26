@@ -492,11 +492,17 @@ This section contains build instructions for each component. Note that:
 bash script/zlib.sh
 bash install.sh zlib
 
+bash script/libdeflate.sh
+bash install.sh libdeflate
+
 bash script/gdbm.sh
 bash script/expat.sh
 bash script/pixman.sh
 
 bash script/argtable.sh
+
+# --with-libdeflate
+bash script/htslib.sh
 
 ```
 
@@ -529,6 +535,9 @@ bash script/faops.sh
 # build without CLAPACK
 bash script/phast.sh
 
+# Depend on zlib, libdeflate and libhts
+bash script/FASTK.sh
+
 ```
 
 ### `CLAPACK`
@@ -550,8 +559,6 @@ bash script/TRF.sh
 bash script/hmmer.sh
 bash script/hmmer2.sh
 bash script/mummer.sh
-
-bash script/htslib.sh
 
 # bundled htslib
 bash script/samtools.sh
@@ -586,8 +593,7 @@ bash script/newick-utils.sh
 Built on a CentOS 7 VM
 
 ```bash
-# zig
-bash script/FASTK.sh
+# all done
 
 ```
 
@@ -698,44 +704,6 @@ $ bash install.sh --dep bwa
 ==> Dependencies for package bwa:
   File: bwa
         librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fb1c7f8c000)
-
-```
-
-```text
-==> Dependencies for package FASTK:
-  File: FastK
-        libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f6f5b415000)
-        libbz2.so.1 => /lib/x86_64-linux-gnu/libbz2.so.1 (0x00007f6f5b401000)
-        liblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007f6f5b3cf000)
-        libcurl.so.4 => /lib/x86_64-linux-gnu/libcurl.so.4 (0x00007f6f5b30e000)
-        libnghttp2.so.14 => /lib/x86_64-linux-gnu/libnghttp2.so.14 (0x00007f6f5b0ca000)
-        libidn2.so.0 => /lib/x86_64-linux-gnu/libidn2.so.0 (0x00007f6f5b0a8000)
-        librtmp.so.1 => /lib/x86_64-linux-gnu/librtmp.so.1 (0x00007f6f5b08a000)
-        libssh.so.4 => /lib/x86_64-linux-gnu/libssh.so.4 (0x00007f6f5b019000)
-        libpsl.so.5 => /lib/x86_64-linux-gnu/libpsl.so.5 (0x00007f6f5b003000)
-        libssl.so.3 => /lib/x86_64-linux-gnu/libssl.so.3 (0x00007f6f5af59000)
-        libcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007f6f5aa46000)
-        libgssapi_krb5.so.2 => /lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007f6f5a9f2000)
-        libldap.so.2 => /lib/x86_64-linux-gnu/libldap.so.2 (0x00007f6f5a995000)
-        liblber.so.2 => /lib/x86_64-linux-gnu/liblber.so.2 (0x00007f6f5a985000)
-        libzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007f6f5a8c9000)
-        libbrotlidec.so.1 => /lib/x86_64-linux-gnu/libbrotlidec.so.1 (0x00007f6f5a8bb000)
-        libunistring.so.5 => /lib/x86_64-linux-gnu/libunistring.so.5 (0x00007f6f5a70e000)
-        libgnutls.so.30 => /lib/x86_64-linux-gnu/libgnutls.so.30 (0x00007f6f5a514000)
-        libhogweed.so.6 => /lib/x86_64-linux-gnu/libhogweed.so.6 (0x00007f6f5a4cc000)
-        libnettle.so.8 => /lib/x86_64-linux-gnu/libnettle.so.8 (0x00007f6f5a477000)
-        libgmp.so.10 => /lib/x86_64-linux-gnu/libgmp.so.10 (0x00007f6f5a3f1000)
-        libkrb5.so.3 => /lib/x86_64-linux-gnu/libkrb5.so.3 (0x00007f6f5a328000)
-        libk5crypto.so.3 => /lib/x86_64-linux-gnu/libk5crypto.so.3 (0x00007f6f5a2fc000)
-        libcom_err.so.2 => /lib/x86_64-linux-gnu/libcom_err.so.2 (0x00007f6f5a2f6000)
-        libkrb5support.so.0 => /lib/x86_64-linux-gnu/libkrb5support.so.0 (0x00007f6f5a2e9000)
-        libsasl2.so.2 => /lib/x86_64-linux-gnu/libsasl2.so.2 (0x00007f6f5a2cd000)
-        libbrotlicommon.so.1 => /lib/x86_64-linux-gnu/libbrotlicommon.so.1 (0x00007f6f5a2aa000)
-        libp11-kit.so.0 => /lib/x86_64-linux-gnu/libp11-kit.so.0 (0x00007f6f5a106000)
-        libtasn1.so.6 => /lib/x86_64-linux-gnu/libtasn1.so.6 (0x00007f6f5a0f0000)
-        libkeyutils.so.1 => /lib/x86_64-linux-gnu/libkeyutils.so.1 (0x00007f6f5a0e9000)
-        libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f6f5a0d4000)
-        libffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x00007f6f5a0c8000)
 
 ```
 
