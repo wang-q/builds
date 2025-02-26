@@ -116,22 +116,22 @@ bash install.sh -b              # List packages in script/ but not built
 ## Package List
 
 ```text
-==> Available packages for Linux:
+==> Available packages for linux
   ASTER
   DALIGNER        DAZZ_DB
   FASTGA          FASTK
   MERQURY.FK
   TRF
   anchr           argtable
-  bcalm           bcftools        bifrost         bwa
-  clustal-omega   consel
+  bcalm           bcftools        bifrost         bwa             bzip2
+  clustalo        consel
   datamash        diamond
   expat
   faops           fastqc          fd              freebayes
   gdbm
   hmmer           hmmer2          hnsm            htslib          hyperfine
   intspan
-  lastz
+  lastz           libdeflate      libpng
   mash            megahit         minimap2        miniprot        mmseqs
   mosdepth        multiz          mummer          muscle
   newick-utils    nwr
@@ -141,6 +141,7 @@ bash install.sh -b              # List packages in script/ but not built
   samtools        sickle          spoa
   tealdeer        tokei           trimal          tsv-utils
   usearch
+  xz
   zlib
 
 ```
