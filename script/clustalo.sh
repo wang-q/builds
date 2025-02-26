@@ -23,5 +23,7 @@ LDFLAGS="-L$HOME/bin/lib -static -largtable2" \
 make || exit 1
 make install || exit 1
 
+# ldd ${TEMP_DIR}/collect/clustalo
+
 # Use build_tar function from common.sh
 build_tar

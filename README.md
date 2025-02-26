@@ -75,9 +75,7 @@ export PATH="$HOME/bin:$PATH"
 
 ```
 
-## Usage
-
-### Available Commands
+## Available Commands
 
 This section provides instructions for downloading and installing pre-built binaries. The process:
 
@@ -115,7 +113,7 @@ bash install.sh -b              # List packages in script/ but not built
 
 ```
 
-### Package List
+## Package List
 
 ```text
 ==> Available packages for Linux:
@@ -384,7 +382,11 @@ curl -o src/MaSuRCA.tar.gz -L https://github.com/alekseyzimin/masurca/releases/d
 
 curl -o src/mummer.tar.gz -L https://github.com/mummer4/mummer/releases/download/v4.0.1/mummer-4.0.1.tar.gz
 
-curl -o src/clustal-omega.tar.gz -L http://www.clustal.org/omega/clustal-omega-1.2.4.tar.gz
+curl -L http://www.clustal.org/omega/clustal-omega-1.2.4.tar.gz |
+    tar xvfz - &&
+    mv clustal-omega-1.2.4 clustalo &&
+    tar -czf src/clustalo.tar.gz clustalo/ &&
+    rm -rf clustalo
 
 # The .tar.gz source code from GitHub equires autoconf/automake to generate ./configure
 curl -L https://github.com/samtools/htslib/releases/download/1.21/htslib-1.21.tar.bz2 |
@@ -553,7 +555,7 @@ bash script/bcftools.sh
 
 # depend on argtable
 bash install.sh argtable
-bash script/clustal-omega.sh
+bash script/clustalo.sh
 
 ```
 
@@ -691,6 +693,11 @@ $ bash install.sh --dep muscle
   File: muscle
     Static executable
 
+$ bash install.sh --dep bwa
+==> Dependencies for package bwa:
+  File: bwa
+        librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fb1c7f8c000)
+
 ```
 
 ```text
@@ -732,17 +739,6 @@ $ bash install.sh --dep muscle
         libkeyutils.so.1 => /lib/x86_64-linux-gnu/libkeyutils.so.1 (0x00007f6f5a0e9000)
         libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f6f5a0d4000)
         libffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x00007f6f5a0c8000)
-
-==> Dependencies for package bifrost:
-  File: Bifrost
-        libbifrost.so => not found
-
-  File: libbifrost.so
-    No additional dependencies
-
-==> Dependencies for package clustal-omega:
-  File: clustalo
-        libargtable2.so.0 => /home/wangq/bin/lib/libargtable2.so.0 (0x00007f9ce95bb000)
 
 ==> Dependencies for package bwa:
   File: bwa

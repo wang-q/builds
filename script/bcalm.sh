@@ -12,7 +12,8 @@ cmake -LH .
 cmake \
     -DKSIZE_LIST="32 64 96 128" \
     -DCMAKE_BUILD_TYPE=Release \
-    -Wno-dev -DBUILD_TESTING=OFF \
+    -Wno-dev \
+    -DBUILD_TESTING=OFF \
     -S . -B build
 #     # -DBUILD_STATIC_EXECS=ON \
 
