@@ -6,14 +6,19 @@ source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 # Extract source code
 extract_source
 
+# Create necessary directories
+mkdir -p obj bin
+
 # Build the project with the specified target architecture and flags
 make \
-    -j 8 \
-    CC="zig cc -target ${TARGET_ARCH}" \
+    CC_WRAPPER="" \
     CXX="zig c++ -target ${TARGET_ARCH}" \
-    AR="zig ar" \
-    CFLAGS="-I$HOME/bin/include -L$HOME/bin/lib -g -Wall -Wno-unused-function -O2" \
+    CXXFLAGS="-I$HOME/bin/include -L$HOME/bin/lib" \
+    LDFLAGS="-L$HOME/bin/lib" \
+    LIBS="-lz -lm -lbz2 -llzma -lpthread" \
     || exit 1
+
+tree .
 
 # # Collect binaries and create tarball
 # collect_make_bins
