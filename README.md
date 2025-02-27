@@ -125,11 +125,12 @@ bash install.sh -b              # List packages in script/ but not built
 ==> Available packages for linux
   ASTER
   DALIGNER        DAZZ_DB
-  FASTGA          FASTK
+  FASTGA          FASTK           FastTree
   MERQURY.FK
   TRF
   anchr           argtable
-  bcalm           bcftools        bifrost         bwa             bzip2
+  bcalm           bcftools        bifrost         boost           bwa
+  bzip2
   clustalo        consel
   datamash        diamond
   expat
@@ -137,14 +138,14 @@ bash install.sh -b              # List packages in script/ but not built
   gdbm
   hmmer           hmmer2          hnsm            htslib          hyperfine
   intspan
-  lastz           libdeflate      libpng
+  lastz           libdeflate      libpng          libxcrypt
   mash            megahit         minimap2        miniprot        mmseqs
   mosdepth        multiz          mummer          muscle
-  newick-utils    nwr
+  ncurses         newick-utils    nwr
   paml            pgr             phast           phylip          picard
   pigz            pixman
-  raxml-ng        reseek          ripgrep
-  samtools        sickle          spoa
+  raxml-ng        readline        reseek          ripgrep
+  samtools        sickle          spoa            sqlite
   tealdeer        tokei           trimal          tsv-utils
   usearch
   xz
