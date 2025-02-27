@@ -292,20 +292,27 @@ curl -L https://downloads.sourceforge.net/project/argtable/argtable/argtable-2.1
     tar -czf src/argtable.tar.gz argtable/ &&
     rm -rf argtable
 
+curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/openmp-19.1.7.src.tar.xz |
+    tar xvfJ - &&
+    mv openmp-19.1.7.src libomp &&
+    tar -czf src/libomp.tar.gz libomp/ &&
+    rm -rf libomp
+
 curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz
 
-curl -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz |
-    tar xvfz - \
-        --exclude='*/doc*' \
-        --exclude='*/test*' \
-        --exclude='*/example*' \
-        --exclude='*/sample*' \
-        --exclude='*/status' \
-        --exclude='*/tools' \
-        --exclude='*/more' &&
-    mv boost-1.87.0 boost &&
-    tar -czf src/boost.tar.gz boost/ &&
-    rm -rf boost
+# curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz
+
+# https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz
+# https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz
+
+# curl -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz |
+#     tar xvfz - \
+#         --exclude='*/doc*' \
+#         --exclude='*/example*' \
+#         --exclude='*/sample*' &&
+#     mv boost-1.87.0 boost &&
+#     tar -czf src/boost.tar.gz boost/ &&
+#     rm -rf boost
 
 curl -o src/clapack.tar.gz -L https://www.netlib.org/clapack/clapack-3.2.1-CMAKE.tgz
 
@@ -604,19 +611,15 @@ bash script/newick-utils.sh
 
 ```
 
-### manually
-
-```bash
-# bash script/FastTree.sh
-
-```
-
 ### Projects requiring specific build environments
 
-Built on a CentOS 7 VM
 
 ```bash
+# Built on a CentOS 7 VM
 # all done
+
+# lack libomp
+bash script/FastTree.sh
 
 ```
 

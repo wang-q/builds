@@ -11,16 +11,24 @@ zig cc -target ${TARGET_ARCH} \
     -O3 \
     -finline-functions \
     -funroll-loops \
-    -DOPENMP \
     -DUSE_DOUBLE \
-    -fopenmp=libomp \
     -lm \
     FastTree.c \
     -o FastTree ||
     exit 1
 
-tree .
+# ldd FastTree
 
-# # Collect binaries and create tarball
-# collect_bins FastTree
-# build_tar
+# ./FastTree
+
+    # -static \
+    # -fopenmp=libomp \
+    # -DOPENMP \
+    # -I/home/linuxbrew/.linuxbrew/opt/libomp/include \
+    # -L/home/linuxbrew/.linuxbrew/opt/libomp/lib \
+    # -Wl,-Bstatic \
+    # -lomp \
+
+# Collect binaries and create tarball
+collect_bins FastTree
+build_tar
