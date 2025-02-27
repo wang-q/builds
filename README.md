@@ -1,5 +1,7 @@
 # Build binaries for glibc 2.17
 
+[![License](https://img.shields.io/github/license/wang-q/builds)](https://github.com/wang-q/builds/blob/master/LICENSE)
+
 A package manager for bioinformatics tools, focusing on glibc 2.17 (CentOS 7) compatibility and
 Apple Silicon support. Pre-built binaries are cross-compiled with Zig for consistent builds across
 platforms.
@@ -32,6 +34,11 @@ platforms.
   * [Binary tarballs](#binary-tarballs)
   * [Dynamic Library Dependencies](#dynamic-library-dependencies)
   * [License](#license)
+* [FAQ](#faq)
+  * [Why use Zig for cross-compilation?](#why-use-zig-for-cross-compilation)
+  * [How does this compare to Conda/Bioconda?](#how-does-this-compare-to-condabioconda)
+  * [Can I use these binaries in a Docker container?](#can-i-use-these-binaries-in-a-docker-container)
+  * [How do I request a new package?](#how-do-i-request-a-new-package)
 <!-- TOC -->
 
 # User Guide
@@ -760,3 +767,30 @@ $ bash install.sh --dep bwa
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+# FAQ
+
+## Why use Zig for cross-compilation?
+
+Zig provides a consistent cross-compilation experience across different platforms and targets
+specific glibc versions, which is essential for compatibility with older Linux distributions like
+CentOS 7.
+
+## How does this compare to Conda/Bioconda?
+
+While Conda provides a comprehensive package management system, this project focuses specifically
+on:
+
+- Minimal dependencies (no Python required)
+- Static linking where possible
+- Specific glibc compatibility
+- Apple Silicon native support
+
+## Can I use these binaries in a Docker container?
+
+Yes, these binaries are ideal for Docker containers as they have minimal dependencies and will work
+on any Linux system with glibc 2.17 or newer.
+
+## How do I request a new package?
+
+Open an issue on GitHub with the package name, source URL, and any specific build requirements.
