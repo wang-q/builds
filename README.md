@@ -292,6 +292,12 @@ curl -L https://downloads.sourceforge.net/project/argtable/argtable/argtable-2.1
     tar -czf src/argtable.tar.gz argtable/ &&
     rm -rf argtable
 
+curl -L https://github.com/besser82/libxcrypt/releases/download/v4.4.38/libxcrypt-4.4.38.tar.xz |
+    tar xvfJ - &&
+    mv libxcrypt-4.4.38 libxcrypt &&
+    tar -czf src/libxcrypt.tar.gz libxcrypt/ &&
+    rm -rf libxcrypt
+
 curl -L https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz |
     tar xvfz - \
         --exclude='libs/math/test/*' \
@@ -439,7 +445,6 @@ curl -L https://github.com/samtools/bcftools/releases/download/1.21/bcftools-1.2
 
 # masurca
 # snp-sites
-# FastTree
 # iqtree2
 # gatk
 
