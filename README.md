@@ -9,9 +9,8 @@ platforms.
 * [User Guide](#user-guide)
   * [System Requirements](#system-requirements)
   * [Installation](#installation)
-  * [Usage](#usage)
-    * [Available Commands](#available-commands)
-    * [Package List](#package-list)
+  * [Available Commands](#available-commands)
+  * [Package List](#package-list)
 * [Developer Guide](#developer-guide)
   * [Project Design](#project-design)
   * [Build requirements](#build-requirements)
@@ -28,10 +27,10 @@ platforms.
     * [`CLAPACK`](#clapack)
     * [`./configure`](#configure)
     * [`cmake`](#cmake)
-    * [manually](#manually)
     * [Projects requiring specific build environments](#projects-requiring-specific-build-environments)
     * [Rust projects](#rust-projects)
   * [Binary tarballs](#binary-tarballs)
+  * [Dynamic Library Dependencies](#dynamic-library-dependencies)
   * [License](#license)
 <!-- TOC -->
 
@@ -639,7 +638,6 @@ bash script/newick-utils.sh
 
 ### Projects requiring specific build environments
 
-
 ```bash
 # Built on a CentOS 7 VM with gcc 4.8
 bash script/boost.sh
@@ -714,16 +712,16 @@ bash script/picard.sh
 The binaries in this project have minimal dynamic library dependencies:
 
 1. Core System Libraries
-   * linux-vdso.so.1 - Virtual dynamic shared object
-   * libc.so.6 - GNU C Library (glibc)
-   * libpthread.so.0 - POSIX threads library
-   * libdl.so.2 - Dynamic linking library
-   * /lib64/ld-linux-x86-64.so.2 - Dynamic linker/loader
+    * linux-vdso.so.1 - Virtual dynamic shared object
+    * libc.so.6 - GNU C Library (glibc)
+    * libpthread.so.0 - POSIX threads library
+    * libdl.so.2 - Dynamic linking library
+    * /lib64/ld-linux-x86-64.so.2 - Dynamic linker/loader
 
 2. C/C++ Runtime Libraries
-   * libstdc++.so.6 - GNU Standard C++ Library
-   * libm.so.6 - Math library
-   * libgcc_s.so.1 - GCC support library
+    * libstdc++.so.6 - GNU Standard C++ Library
+    * libm.so.6 - Math library
+    * libgcc_s.so.1 - GCC support library
 
 Example of checking dependencies:
 
