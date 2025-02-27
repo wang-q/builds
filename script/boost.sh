@@ -6,28 +6,31 @@ source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 # Extract source code
 extract_source
 
-# Configure CMake with Zig compiler
-./bootstrap.sh \
-    --with-toolset=gcc \
-    --without-icu \
-    --without-libraries=python,mpi,log
+ls
 
-# ./b2 --help
+# # Configure CMake with Zig compiler
+# bash bootstrap.sh
+# # ./bootstrap.sh \
+# #     --with-toolset=gcc \
+# #     --without-icu \
+# #     --without-libraries=python,mpi,log
 
-./b2 headers
+# # ./b2 --help
 
-./b2 \
-    --prefix="${TEMP_DIR}/collect" \
-    --libdir="${TEMP_DIR}/collect/lib" \
-    -d2 \
-    -j8 \
-    --layout=system \
-    threading=multi \
-    link=static \
-    cxxflags=-std=c++11 \
-    install
+# ./b2 headers
 
-ls -l "${TEMP_DIR}/collect/lib"
+# ./b2 \
+#     --prefix="${TEMP_DIR}/collect" \
+#     --libdir="${TEMP_DIR}/collect/lib" \
+#     -d2 \
+#     -j8 \
+#     --layout=system \
+#     threading=multi \
+#     link=static \
+#     cxxflags=-std=c++11 \
+#     install
+
+# ls -l "${TEMP_DIR}/collect/lib"
 
 # cmake -LH .
 

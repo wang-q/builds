@@ -298,7 +298,9 @@ curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/op
     tar -czf src/libomp.tar.gz libomp/ &&
     rm -rf libomp
 
-curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz
+curl -o src/boost.tar.gz -L https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz
+
+# curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz
 
 # curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz
 
