@@ -298,6 +298,12 @@ curl -L https://github.com/besser82/libxcrypt/releases/download/v4.4.38/libxcryp
     tar -czf src/libxcrypt.tar.gz libxcrypt/ &&
     rm -rf libxcrypt
 
+curl -o src/ncurses.tar.gz -L https://ftp.gnu.org/gnu/ncurses/ncurses-6.5.tar.gz
+
+curl -o src/readline.tar.gz -L https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
+
+curl -o src/sqlite.tar.gz -L https://www.sqlite.org/2025/sqlite-autoconf-3490100.tar.gz
+
 curl -L https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz |
     tar xvfz - \
         --exclude='libs/math/test/*' \
@@ -539,12 +545,16 @@ bash install.sh bzip2
 bash script/xz.sh
 bash install.sh xz
 
+bash script/ncurses.sh
+bash install.sh ncurses
+
 bash script/gdbm.sh
 bash script/expat.sh
 bash script/pixman.sh
 bash script/libpng.sh
 
 bash script/argtable.sh
+bash script/libxcrypt.sh
 
 # --with-libdeflate
 bash script/htslib.sh
