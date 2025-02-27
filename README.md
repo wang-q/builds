@@ -292,29 +292,39 @@ curl -L https://downloads.sourceforge.net/project/argtable/argtable/argtable-2.1
     tar -czf src/argtable.tar.gz argtable/ &&
     rm -rf argtable
 
+curl -L https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz |
+    tar xvfz - \
+        --exclude='libs/math/test/*' \
+        --exclude='libs/geometry/test/*' \
+        --exclude='libs/gil/test/*' \
+        --exclude='libs/multiprecision/test/*' \
+        --exclude='libs/beast/test/*' \
+        --exclude='libs/*/example/*' \
+        --exclude='libs/*/doc/*' \
+        --exclude='*.html' \
+        --exclude='*.htm' \
+        --exclude='*.pdf' \
+        --exclude='*.png' \
+        --exclude='*.jpg' \
+        --exclude='*.gif' \
+        --exclude='*.bmp' \
+        --exclude='*.css' \
+        --exclude='*.js' \
+        --exclude='*.txt' \
+        --exclude='*.dat' \
+        --exclude='*.dat' \
+        --exclude='*.qbk' \
+        --exclude='*.svg' \
+        --exclude='*.xml' &&
+    mv boost_1_74_0 boost &&
+    tar -czf src/boost.tar.gz boost/ &&
+    rm -rf boost
+
 curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/openmp-19.1.7.src.tar.xz |
     tar xvfJ - &&
     mv openmp-19.1.7.src libomp &&
     tar -czf src/libomp.tar.gz libomp/ &&
     rm -rf libomp
-
-curl -o src/boost.tar.gz -L https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz
-
-# curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz
-
-# curl -o src/boost.tar.gz -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz
-
-# https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz
-# https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-cmake.tar.gz
-
-# curl -L https://github.com/boostorg/boost/releases/download/boost-1.87.0/boost-1.87.0-b2-nodocs.tar.gz |
-#     tar xvfz - \
-#         --exclude='*/doc*' \
-#         --exclude='*/example*' \
-#         --exclude='*/sample*' &&
-#     mv boost-1.87.0 boost &&
-#     tar -czf src/boost.tar.gz boost/ &&
-#     rm -rf boost
 
 curl -o src/clapack.tar.gz -L https://www.netlib.org/clapack/clapack-3.2.1-CMAKE.tgz
 
@@ -617,8 +627,8 @@ bash script/newick-utils.sh
 
 
 ```bash
-# Built on a CentOS 7 VM
-# all done
+# Built on a CentOS 7 VM with gcc 4.8
+bash script/boost.sh
 
 # lack libomp
 bash script/FastTree.sh
