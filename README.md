@@ -534,19 +534,18 @@ This section contains build instructions for each component. Note that:
 
 ```bash
 bash script/zlib.sh
-bash install.sh zlib
-
 bash script/libdeflate.sh
-bash install.sh libdeflate
-
 bash script/bzip2.sh
-bash install.sh bzip2
-
 bash script/xz.sh
-bash install.sh xz
+
+bash install.sh zlib libdeflate bzip2 xz
 
 bash script/ncurses.sh
-bash install.sh ncurses
+bash script/readline.sh
+
+bash install.sh ncurses readline
+
+bash script/sqlite.sh
 
 bash script/gdbm.sh
 bash script/expat.sh
