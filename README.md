@@ -703,6 +703,8 @@ tar -cf - ${BIN} | gzip -9 > tar/${BIN}.linux.tar.gz
 rm ${BIN}
 
 bash script/tsv-utils.sh
+bash script/pup.sh
+
 bash script/raxml-ng.sh
 bash script/mash.sh
 bash script/megahit.sh
