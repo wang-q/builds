@@ -462,7 +462,6 @@ curl -L https://github.com/samtools/bcftools/releases/download/1.21/bcftools-1.2
 
 # masurca
 # snp-sites
-# iqtree2
 # gatk
 
 # cmake
@@ -716,6 +715,7 @@ bash script/mash.sh
 bash script/megahit.sh
 bash script/mmseqs.sh
 bash script/freebayes.sh
+bash script/iqtree2.sh
 
 # java
 bash script/fastqc.sh
