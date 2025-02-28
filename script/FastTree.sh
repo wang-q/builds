@@ -24,9 +24,8 @@ zig cc -target ${TARGET_ARCH} \
     # -static \
     # -fopenmp=libomp \
     # -DOPENMP \
-    # -I/home/linuxbrew/.linuxbrew/opt/libomp/include \
-    # -L/home/linuxbrew/.linuxbrew/opt/libomp/lib \
-    # -Wl,-Bstatic \
+    # -I$HOME/bin/include \
+    # -L$HOME/bin/lib \
     # -lomp \
 
 # Collect binaries and create tarball

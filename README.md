@@ -702,6 +702,8 @@ chmod +x ${BIN}
 tar -cf - ${BIN} | gzip -9 > tar/${BIN}.linux.tar.gz
 rm ${BIN}
 
+bash script/libomp.sh
+
 bash script/tsv-utils.sh
 bash script/pup.sh
 
