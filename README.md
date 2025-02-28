@@ -311,6 +311,8 @@ curl -o src/readline.tar.gz -L https://ftp.gnu.org/gnu/readline/readline-8.2.tar
 
 curl -o src/sqlite.tar.gz -L https://www.sqlite.org/2025/sqlite-autoconf-3490100.tar.gz
 
+curl -o src/gsl.tar.gz -L https://ftp.gnu.org/gnu/gsl/gsl-2.8.tar.gz
+
 curl -L https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz |
     tar xvfz - \
         --exclude='libs/math/test/*' \
