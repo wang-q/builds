@@ -341,6 +341,8 @@ curl -L https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz |
     tar -czf src/boost.tar.gz boost/ &&
     rm -rf boost
 
+curl -o src/eigen.tar.gz -L https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
+
 curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/openmp-19.1.7.src.tar.xz |
     tar xvfJ - &&
     mv openmp-19.1.7.src libomp &&
