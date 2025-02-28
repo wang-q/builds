@@ -13,20 +13,19 @@ zig cc -target ${TARGET_ARCH} \
     -funroll-loops \
     -DUSE_DOUBLE \
     -lm \
+    -DOPENMP \
+    -static \
+    -Wl,-Bstatic \
+    -fopenmp=libgomp \
+    -I/usr/lib/gcc/x86_64-redhat-linux/4.8.2/include/ \
+    -L/usr/lib/gcc/x86_64-redhat-linux/4.8.2/ \
+    -lgomp \
     FastTree.c \
     -o FastTree ||
     exit 1
 
 # ldd FastTree
-
 # ./FastTree
-
-    # -static \
-    # -fopenmp=libomp \
-    # -DOPENMP \
-    # -I$HOME/bin/include \
-    # -L$HOME/bin/lib \
-    # -lomp \
 
 # Collect binaries and create tarball
 collect_bins FastTree

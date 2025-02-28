@@ -650,7 +650,7 @@ bash script/newick-utils.sh
 # Built on a CentOS 7 VM with gcc 4.8
 bash script/boost.sh
 
-# lack libomp
+# use system libgomp
 bash script/FastTree.sh
 
 ```
@@ -702,7 +702,7 @@ chmod +x ${BIN}
 tar -cf - ${BIN} | gzip -9 > tar/${BIN}.linux.tar.gz
 rm ${BIN}
 
-bash script/libomp.sh
+# bash script/libomp.sh
 
 bash script/tsv-utils.sh
 bash script/pup.sh
